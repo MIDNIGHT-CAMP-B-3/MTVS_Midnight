@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MTVS_MidnightModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+394f1c726d37af582429a27a17cce409009a24d5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e52ca21d51211b84349461a4b62f8ea70686331")]
 [assembly: System.Reflection.AssemblyProductAttribute("MTVS_MidnightModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MTVS_MidnightModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
