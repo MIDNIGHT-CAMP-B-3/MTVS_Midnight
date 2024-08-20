@@ -1,11 +1,11 @@
-"C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Source\MTVS_Midnight\MTVS_Midnight.cpp"
-/FI"C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\MTVS_MidnightEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
-/FI"C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\UnrealEditor\Development\MTVS_Midnight\Definitions.MTVS_Midnight.h"
-/Yu"C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\MTVS_MidnightEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
-/Fp"C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\MTVS_MidnightEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.pch"
-/Fo"C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\UnrealEditor\Development\MTVS_Midnight\MTVS_Midnight.cpp.obj"
-/sourceDependencies "C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\UnrealEditor\Development\MTVS_Midnight\MTVS_Midnight.cpp.dep.json"
-@"C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\UnrealEditor\Development\MTVS_Midnight\MTVS_Midnight.Shared.rsp"
+"C:\Users\Admin\Documents\GitHub\MTVS_Midnight_Unreal\MTVS_Midnight\Source\MTVS_Midnight\MTVS_Midnight.cpp"
+/FI"C:\Users\Admin\Documents\GitHub\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\MTVS_MidnightEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
+/FI"C:\Users\Admin\Documents\GitHub\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\UnrealEditor\Development\MTVS_Midnight\Definitions.MTVS_Midnight.h"
+/Yu"C:\Users\Admin\Documents\GitHub\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\MTVS_MidnightEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
+/Fp"C:\Users\Admin\Documents\GitHub\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\MTVS_MidnightEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.pch"
+/Fo"C:\Users\Admin\Documents\GitHub\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\UnrealEditor\Development\MTVS_Midnight\MTVS_Midnight.cpp.obj"
+/sourceDependencies "C:\Users\Admin\Documents\GitHub\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\UnrealEditor\Development\MTVS_Midnight\MTVS_Midnight.cpp.dep.json"
+@"C:\Users\Admin\Documents\GitHub\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\x64\UnrealEditor\Development\MTVS_Midnight\MTVS_Midnight.Shared.rsp"
 /Zc:inline
 /nologo
 /Oi
