@@ -37,14 +37,16 @@ void AHSW_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-// 	if (bCanLookBack == true)
-// 	{
-// 		SetActorRotation(FMath::Lerp(GetActorRotation(), LookBackRotation, 0.1f));
-// 	}
-// 	else
-// 	{
-// 		SetActorRotation(FMath::Lerp(GetActorRotation(), DefaultRotation, 0.1f));
-// 	}
+	if (bCanLookBack == true)
+	{
+		GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), LookBackRotation, 0.1f));
+		//SetActorRotation(FMath::Lerp(GetActorRotation(), LookBackRotation, 0.1f));
+	}
+	else
+	{
+		GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), DefaultRotation, 0.1f));
+		//SetActorRotation(FMath::Lerp(GetActorRotation(), DefaultRotation, 0.1f));
+	}
 }
 
 // Called to bind functionality to input
@@ -52,16 +54,17 @@ void AHSW_Player::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-// 	PlayerInputComponent->BindAction(TEXT("LookBack"), IE_Pressed, this, & AHSW_Player::onMyActionLookBack);
-// 	PlayerInputComponent->BindAction(TEXT("LookBack"), IE_Released, this, &AHSW_Player::onMyActionLookBack);
+ 	PlayerInputComponent->BindAction(TEXT("LookBack"), IE_Pressed, this, &AHSW_Player::onMyActionLookBack);
+ 	PlayerInputComponent->BindAction(TEXT("LookBack"), IE_Released, this, &AHSW_Player::onMyActionLookBack);
 
-	PlayerInputComponent->BindAction(TEXT("LookBack"), IE_Pressed, this, & AHSW_Player::TurnBack);
-	PlayerInputComponent->BindAction(TEXT("LookBack"), IE_Released, this, &AHSW_Player::LookForward);
+//	PlayerInputComponent->BindAction(TEXT("LookBack"), IE_Pressed, this, & AHSW_Player::TurnBack);
+//	PlayerInputComponent->BindAction(TEXT("LookBack"), IE_Released, this, &AHSW_Player::LookForward);
 }
 
 void AHSW_Player::onMyActionLookBack()
 {
 	bCanLookBack = !bCanLookBack;
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("onMyActionLookBack"));
 }
 
 void AHSW_Player::TurnBack()
