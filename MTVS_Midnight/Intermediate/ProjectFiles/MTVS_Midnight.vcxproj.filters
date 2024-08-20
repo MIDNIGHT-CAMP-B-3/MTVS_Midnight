@@ -30,6 +30,12 @@
     <Filter Include="Source\MTVS_Midnight">
       <UniqueIdentifier>{9A24C644-7E24-3243-B636-289CCB98063B}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\MTVS_Midnight\HSW_Player.cpp">
+      <Filter>Source\MTVS_Midnight</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MTVS_Midnight\HSW_Player.h">
+      <Filter>Source\MTVS_Midnight</Filter>
+    </ClInclude>
     <None Include="..\..\Source\MTVS_Midnight\MTVS_Midnight.Build.cs">
       <Filter>Source\MTVS_Midnight</Filter>
     </None>
