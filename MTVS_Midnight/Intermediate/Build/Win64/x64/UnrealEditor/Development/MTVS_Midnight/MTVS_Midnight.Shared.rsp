@@ -1,4 +1,5 @@
 /I "."
+/I "C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\Win64\UnrealEditor\Inc\MTVS_Midnight\UHT"
 /I "C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Source"
 /I "Runtime\Core\Public"
 /I "Runtime\Core\Internal"

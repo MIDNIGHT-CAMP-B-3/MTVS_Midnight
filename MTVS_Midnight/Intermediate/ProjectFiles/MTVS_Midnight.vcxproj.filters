@@ -11,6 +11,7 @@
     <None Include="..\..\Source\MTVS_MidnightEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -37,6 +38,24 @@
     </ClCompile>
     <ClInclude Include="..\..\Source\MTVS_Midnight\MTVS_Midnight.h">
       <Filter>Source\MTVS_Midnight</Filter>
+    </ClInclude>
+    <Filter Include="Source\MTVS_Midnight\TP_ThirdPerson">
+      <UniqueIdentifier>{92F0EE4E-7AA9-3F86-BD8A-9A899BF6799F}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\MTVS_Midnight\TP_ThirdPerson\TP_ThirdPerson.h">
+      <Filter>Source\MTVS_Midnight\TP_ThirdPerson</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MTVS_Midnight\TP_ThirdPerson\TP_ThirdPersonCharacter.cpp">
+      <Filter>Source\MTVS_Midnight\TP_ThirdPerson</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MTVS_Midnight\TP_ThirdPerson\TP_ThirdPersonCharacter.h">
+      <Filter>Source\MTVS_Midnight\TP_ThirdPerson</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MTVS_Midnight\TP_ThirdPerson\TP_ThirdPersonGameMode.cpp">
+      <Filter>Source\MTVS_Midnight\TP_ThirdPerson</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MTVS_Midnight\TP_ThirdPerson\TP_ThirdPersonGameMode.h">
+      <Filter>Source\MTVS_Midnight\TP_ThirdPerson</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
