@@ -1,8 +1,0 @@
-{
-	"SourceFiles": [
-		"C:\\Users\\Admin\\Documents\\GitHub\\MTVS_Midnight_Unreal\\MTVS_Midnight\\Source\\MTVS_Midnight\\MTVS_Midnight.Build.cs",
-		"C:\\Users\\Admin\\Documents\\GitHub\\MTVS_Midnight_Unreal\\MTVS_Midnight\\Source\\MTVS_Midnight.Target.cs",
-		"C:\\Users\\Admin\\Documents\\GitHub\\MTVS_Midnight_Unreal\\MTVS_Midnight\\Source\\MTVS_MidnightEditor.Target.cs"
-	],
-	"EngineVersion": "5.4.3"
-}
