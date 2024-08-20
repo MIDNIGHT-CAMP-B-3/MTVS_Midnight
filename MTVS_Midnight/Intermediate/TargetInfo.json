@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "MTVS_Midnight",
+			"Path": "..\\Source\\MTVS_Midnight.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "MTVS_MidnightEditor",
+			"Path": "..\\Source\\MTVS_MidnightEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
