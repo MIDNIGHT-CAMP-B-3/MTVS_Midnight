@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MTVS_MidnightModuleRules
-build_property.ProjectDir = C:\Projects\Unreal\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\BuildRulesProjects\MTVS_MidnightModuleRules\
+build_property.ProjectDir = C:\MTVS_Midnight_Unreal\MTVS_Midnight\Intermediate\Build\BuildRulesProjects\MTVS_MidnightModuleRules\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

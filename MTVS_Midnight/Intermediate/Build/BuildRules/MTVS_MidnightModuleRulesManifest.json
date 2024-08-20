@@ -1,8 +1,8 @@
 {
 	"SourceFiles": [
-		"C:\\Projects\\Unreal\\MTVS_Midnight_Unreal\\MTVS_Midnight\\Source\\MTVS_Midnight\\MTVS_Midnight.Build.cs",
-		"C:\\Projects\\Unreal\\MTVS_Midnight_Unreal\\MTVS_Midnight\\Source\\MTVS_Midnight.Target.cs",
-		"C:\\Projects\\Unreal\\MTVS_Midnight_Unreal\\MTVS_Midnight\\Source\\MTVS_MidnightEditor.Target.cs"
+		"C:\\MTVS_Midnight_Unreal\\MTVS_Midnight\\Source\\MTVS_Midnight\\MTVS_Midnight.Build.cs",
+		"C:\\MTVS_Midnight_Unreal\\MTVS_Midnight\\Source\\MTVS_Midnight.Target.cs",
+		"C:\\MTVS_Midnight_Unreal\\MTVS_Midnight\\Source\\MTVS_MidnightEditor.Target.cs"
 	],
 	"EngineVersion": "5.4.3"
 }

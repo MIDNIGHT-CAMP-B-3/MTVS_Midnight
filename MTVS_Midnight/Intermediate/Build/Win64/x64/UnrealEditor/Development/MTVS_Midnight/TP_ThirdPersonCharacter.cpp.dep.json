@@ -1,12 +1,12 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\projects\\unreal\\mtvs_midnight_unreal\\mtvs_midnight\\source\\mtvs_midnight\\tp_thirdperson\\tp_thirdpersoncharacter.cpp",
+        "Source": "c:\\mtvs_midnight_unreal\\mtvs_midnight\\source\\mtvs_midnight\\tp_thirdperson\\tp_thirdpersoncharacter.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\projects\\unreal\\mtvs_midnight_unreal\\mtvs_midnight\\intermediate\\build\\win64\\x64\\mtvs_midnighteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "PCH": "c:\\mtvs_midnight_unreal\\mtvs_midnight\\intermediate\\build\\win64\\x64\\mtvs_midnighteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
         "Includes": [
-            "c:\\projects\\unreal\\mtvs_midnight_unreal\\mtvs_midnight\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\mtvs_midnight\\definitions.mtvs_midnight.h",
-            "c:\\projects\\unreal\\mtvs_midnight_unreal\\mtvs_midnight\\source\\mtvs_midnight\\tp_thirdperson\\tp_thirdpersoncharacter.h",
+            "c:\\mtvs_midnight_unreal\\mtvs_midnight\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\mtvs_midnight\\definitions.mtvs_midnight.h",
+            "c:\\mtvs_midnight_unreal\\mtvs_midnight\\source\\mtvs_midnight\\tp_thirdperson\\tp_thirdpersoncharacter.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\experimental\\iris\\core\\public\\iris\\serialization\\irisobjectreferencepackagemap.h",
@@ -15,7 +15,7 @@
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
-            "c:\\projects\\unreal\\mtvs_midnight_unreal\\mtvs_midnight\\intermediate\\build\\win64\\unrealeditor\\inc\\mtvs_midnight\\uht\\tp_thirdpersoncharacter.generated.h",
+            "c:\\mtvs_midnight_unreal\\mtvs_midnight\\intermediate\\build\\win64\\unrealeditor\\inc\\mtvs_midnight\\uht\\tp_thirdpersoncharacter.generated.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\camera\\cameracomponent.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\cameracomponent.generated.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\components\\capsulecomponent.h",

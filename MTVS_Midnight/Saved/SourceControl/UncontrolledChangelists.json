@@ -5,6 +5,9 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
+				"C:/MTVS_Midnight_Unreal/MTVS_Midnight/Content/LSJ/AB_AIChildCharacter.uasset",
+				"C:/MTVS_Midnight_Unreal/MTVS_Midnight/Content/LSJ/BS_AIChildCharacter.uasset",
+				"C:/MTVS_Midnight_Unreal/MTVS_Midnight/Content/LSJ/BP_AIChildCharacter.uasset",
 				"C:/Projects/Unreal/MTVS_Midnight_Unreal/MTVS_Midnight/Content/StarterContent/Blueprints/Blueprint_CeilingLight.uasset",
 				"C:/Projects/Unreal/MTVS_Midnight_Unreal/MTVS_Midnight/Content/HSW/Maps/HSW_Player_Level.umap",
 				"C:/Projects/Unreal/MTVS_Midnight_Unreal/MTVS_Midnight/Content/HSW/Maps/HSW_Level.umap",

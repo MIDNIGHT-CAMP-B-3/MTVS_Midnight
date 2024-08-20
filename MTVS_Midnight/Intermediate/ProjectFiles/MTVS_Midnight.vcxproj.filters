@@ -39,6 +39,24 @@
     <ClInclude Include="..\..\Source\MTVS_Midnight\MTVS_Midnight.h">
       <Filter>Source\MTVS_Midnight</Filter>
     </ClInclude>
+    <Filter Include="Source\MTVS_Midnight\Private">
+      <UniqueIdentifier>{FB84F49B-8DA3-3DBE-B176-B1D7DE44D99D}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MTVS_Midnight\Private\AIChildCharacter.cpp">
+      <Filter>Source\MTVS_Midnight\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MTVS_Midnight\Private\AIChildCharacterAnimInstance.cpp">
+      <Filter>Source\MTVS_Midnight\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\MTVS_Midnight\Public">
+      <UniqueIdentifier>{01EB5A71-3EBC-333C-A72E-8D200CEFB0E9}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\MTVS_Midnight\Public\AIChildCharacter.h">
+      <Filter>Source\MTVS_Midnight\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MTVS_Midnight\Public\AIChildCharacterAnimInstance.h">
+      <Filter>Source\MTVS_Midnight\Public</Filter>
+    </ClInclude>
     <Filter Include="Source\MTVS_Midnight\TP_ThirdPerson">
       <UniqueIdentifier>{92F0EE4E-7AA9-3F86-BD8A-9A899BF6799F}</UniqueIdentifier>
     </Filter>
