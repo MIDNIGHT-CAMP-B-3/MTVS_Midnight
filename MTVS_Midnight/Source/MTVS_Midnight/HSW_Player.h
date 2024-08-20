@@ -26,4 +26,21 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UPROPERTY(EditDefaultsOnly)
+	class USpringArmComponent* SpringArmComp;
+
+	UPROPERTY(EditDefaultsOnly)
+	class UCameraComponent* CameraComp;
+
+	FRotator DefaultRotation = FRotator(0,-90.f,0);
+	FRotator LookBackRotation = FRotator(0, 90.f, 0);
+
+	void onMyActionLookBack();
+
+	bool bCanLookBack;
+
+	void TurnBack();
+	void LookForward();
+
+
 };
