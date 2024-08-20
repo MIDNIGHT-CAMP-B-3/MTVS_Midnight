@@ -71,18 +71,16 @@ void AAIChildCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 void AAIChildCharacter::TickStop(const float& DeltaTime)
 {
-
+	GetMesh()->bPauseAnims=true;
 }
 
 void AAIChildCharacter::TickMove(const float& DeltaTime)
 {
 	//목적지를 향해서 이동하고 싶다.
-	//조건 만약 목적지와읭 거리가 공격가능 거리라면 
-	//공격상태로 전이하고 싶다.
 	FVector direction = GetActorLocation() + GetActorForwardVector()* 10000.0f - GetActorLocation();
-	//
 	FVector goalDirection = startLocation + GetActorForwardVector() * goalDistance - GetActorLocation();
-	UE_LOG(LogTemp, Warning, TEXT("%f"), goalDirection.Length());
+	//UE_LOG(LogTemp, Warning, TEXT("%f"), goalDirection.Length());
+	//목적 거리까지 오면 Complete상태로 전환
 	if (goalDirection.Length() <= 10)
 	{
 		
