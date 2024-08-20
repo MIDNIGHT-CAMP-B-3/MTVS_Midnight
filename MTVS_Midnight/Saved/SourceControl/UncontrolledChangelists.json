@@ -5,7 +5,8 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
-				"C:/Projects/Unreal/MTVS_Midnight_Unreal/MTVS_Midnight/Content/StarterContent/Blueprints/Blueprint_CeilingLight.uasset"
+				"C:/Projects/Unreal/MTVS_Midnight_Unreal/MTVS_Midnight/Content/StarterContent/Blueprints/Blueprint_CeilingLight.uasset",
+				"C:/Projects/Unreal/MTVS_Midnight_Unreal/MTVS_Midnight/Content/LHM/Maps/Start.umap"
 			]
 		}
 	]
