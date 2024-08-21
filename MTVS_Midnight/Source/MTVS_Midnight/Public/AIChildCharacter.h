@@ -14,6 +14,7 @@ enum class EAIChildCharacterState :uint8 {
 	Complete,
 	Selected,
 	Die,
+	Mission,
 };
 
 UCLASS()
@@ -26,6 +27,7 @@ class MTVS_MIDNIGHT_API AAIChildCharacter : public ACharacter
 	bool bGameStart;
 	class AHSW_Player* player;
 public:
+	int32 numLine;
 	bool walkStyle1;
 	bool walkStyle2;
 	float randomScaleSpeed = 1.0f;
@@ -72,6 +74,7 @@ private:
 	FVector startLocation;
 	class UAIChildCharacterAnimInstance* anim;
 	void TickIdle(const float& DeltaTime);
+	void TickMission(const float& DeltaTime);
 	void TickStop(const float& DeltaTime);
 	void TickMove(const float& DeltaTime);
 	void SetMoveState();
