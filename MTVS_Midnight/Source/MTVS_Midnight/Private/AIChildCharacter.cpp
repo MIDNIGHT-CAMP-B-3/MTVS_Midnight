@@ -51,7 +51,7 @@ AAIChildCharacter::AAIChildCharacter()
 	if (Finder.Succeeded())
 	{
 		GetMesh()->SetSkeletalMesh(Finder.Object);
-		GetMesh()->SetRelativeScale3D(FVector(0.5f, 0.5f, 0.5f));
+		GetMesh()->SetRelativeScale3D(FVector(1.f, 1.f, 1.f));
 		GetMesh()->SetRelativeLocationAndRotation(FVector(0, 0, -100.f), FRotator(0, -90.f, 0));
 		GetMesh()->SetRelativeScale3D(FVector(.8, 0.8, 0.8));
 	}
@@ -216,6 +216,7 @@ void AAIChildCharacter::TouchEnemy()
 	else
 	{
 		//플레이어 hp 달기
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("Character HP --"));
 	}
 }
 
