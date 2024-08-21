@@ -27,8 +27,8 @@ AHSW_Player::AHSW_Player()
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
 	SpringArmComp->SetupAttachment(RootComponent);
 
-	SpringArmComp->SetRelativeLocation(FVector(555.f, 0.f, 543.f));
-	SpringArmComp->SetRelativeRotation(FRotator(-10.f, 180.f, 0.f));
+	SpringArmComp->SetRelativeLocation(FVector(696.f, 0.f, 540.f));
+	SpringArmComp->SetRelativeRotation(FRotator(-5.f, 180.f, 0.f));
 
 	SpringArmComp->TargetArmLength = 0;
 
@@ -52,13 +52,13 @@ void AHSW_Player::Tick(float DeltaTime)
 
 	//StartUDPServer();
 
-	if (bCanLookBack == true)
+	if (bCanLookBack == true && bPlayingQuiz == false)
 	{
 		PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), LookBackRotation, 0.1f));
 		//GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), LookBackRotation, 0.1f));
 		//SetActorRotation(FMath::Lerp(GetActorRotation(), LookBackRotation, 0.1f));
 	}
-	else
+	else if (bCanLookBack == false)
 	{
 		PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), DefaultRotation, 0.1f));
 		//GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), DefaultRotation, 0.1f));
