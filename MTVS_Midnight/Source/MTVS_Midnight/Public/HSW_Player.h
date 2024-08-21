@@ -67,7 +67,7 @@ public:
 //     void ReceiveData();
 
 	float CurrentTime;
-	float MakeSoundTime = 2.f;
+	float MakeSoundTime = 1.5f;
 
 	bool bCanPlayingSound = true;
 	

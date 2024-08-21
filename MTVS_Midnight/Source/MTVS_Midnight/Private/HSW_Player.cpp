@@ -48,8 +48,8 @@ void AHSW_Player::BeginPlay()
 	CheckAudioComponent = NewObject<UAudioComponent>(this);
 
 
-	MugungHwuaAudioComponent->SetSound(MugunghwuaSFV);
-	MugungHwuaAudioComponent->RegisterComponent();
+//	MugungHwuaAudioComponent->SetSound(MugunghwuaSFV);
+//	MugungHwuaAudioComponent->RegisterComponent();
 
 	CheckAudioComponent->SetSound(MugunghwuaSFV);
 	CheckAudioComponent->RegisterComponent();
@@ -66,6 +66,8 @@ void AHSW_Player::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	//StartUDPServer();
+
+
 
 	if ( (bCanLookBack == true) )//&& (bPlayingQuiz == false) && (!(MugungHwuaAudioComponent->IsPlaying())) 
 	{
@@ -92,7 +94,7 @@ void AHSW_Player::Tick(float DeltaTime)
 			GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Red, TEXT("PlaySound"));
 
 			CheckAudioComponent->Play();
-			MugungHwuaAudioComponent->Play();
+//			MugungHwuaAudioComponent->Play();
 		}
 		GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Magenta, FString::Printf(TEXT("%f"),CurrentTime));
 		//if ((!(MugungHwuaAudioComponent->IsPlaying()))&&(bCanPlayingSound == true))
