@@ -22,8 +22,14 @@ public:
     UFUNCTION()
     void OnAnswerButton2Clicked();
 
-protected:
+public:
     virtual void NativeConstruct() override;
+
+    virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+
+    // 플레이 타임
+    UPROPERTY(BlueprintReadOnly, Category = "Quiz")
+    float PlayTime;
 
     // 현재 점수
     UPROPERTY(BlueprintReadOnly, Category = "Quiz")
@@ -32,6 +38,10 @@ protected:
     // 정답 문자열
     UPROPERTY(BlueprintReadOnly, Category = "Quiz")
     FString CorrectAnswer = "Apple";
+    
+    // 플레이 타임 텍스트
+    UPROPERTY(meta = (BindWidget))
+    class UTextBlock* PlayTimeText;
 
     // 퀴즈 질문 텍스트
     UPROPERTY(meta = (BindWidget))
@@ -56,6 +66,29 @@ protected:
     void OnAnswerSelected(const FString& SelectedAnswer);
 
     // UI 업데이트 함수
+    void UpdatePlayTimeDisplay(float DeltaSeconds);
     void UpdateScoreDisplay();
     void ShowFeedback(bool bIsCorrect);
+
+    void HiddenFeedbackText();
+
+    UPROPERTY(meta = (BindWidget))
+    class UImage* hp1;
+    UPROPERTY(meta = (BindWidget))
+    class UImage* hp2;
+    UPROPERTY(meta = (BindWidget))
+    class UImage* hp3;
+
+    UPROPERTY(BlueprintReadWrite)
+    int32 PlayerHP = 3;
+
+    // 플레이어 데미지 처리 함수
+    UFUNCTION()
+    void PlayerDamage(int32 damage);
+
+    UFUNCTION()
+    void SwitchLevel();
+
+
+
 };
