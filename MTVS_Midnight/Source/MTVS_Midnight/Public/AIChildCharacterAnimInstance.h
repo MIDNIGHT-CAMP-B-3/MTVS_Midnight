@@ -13,5 +13,8 @@ UCLASS()
 class MTVS_MIDNIGHT_API UAIChildCharacterAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
-	
+public:
+	virtual void NativeUpdateAnimation(float DeltaSeconds);
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
+	float Speed;
 };

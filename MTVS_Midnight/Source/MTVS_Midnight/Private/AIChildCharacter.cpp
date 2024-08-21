@@ -2,6 +2,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "GameFramework/CharacterMovementComponent.h"
 #include "AIChildCharacterAnimInstance.h"
+#include "HSW_Player.h"
+
 // Sets default values
 AAIChildCharacter::AAIChildCharacter()
 {
@@ -35,13 +37,13 @@ void AAIChildCharacter::BeginPlay()
 	Super::BeginPlay();
 	//플레이어 찾기
 	
+
 	//애님 인스턴스 만들기
 	anim = Cast<UAIChildCharacterAnimInstance>(GetMesh()->GetAnimInstance());
 
 	startLocation = GetActorLocation();
 
 	FTimerHandle TimerHandle;
-
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AAIChildCharacter::SetMoveState, 3, false);
 }
 
@@ -53,6 +55,9 @@ void AAIChildCharacter::Tick(float DeltaTime)
 	DrawDebugString(GetWorld(), GetActorLocation(), myState, nullptr, FColor::Yellow, 0);
 	switch (State)
 	{
+	case EAIChildCharacterState::IDLE:
+		TickIdle(DeltaTime);
+		break;
 	case EAIChildCharacterState::STOP:
 		TickStop(DeltaTime);
 		break;
@@ -60,6 +65,7 @@ void AAIChildCharacter::Tick(float DeltaTime)
 		TickMove(DeltaTime);
 		break;
 	}
+
 }
 
 // Called to bind functionality to input
@@ -71,7 +77,7 @@ void AAIChildCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 void AAIChildCharacter::TickStop(const float& DeltaTime)
 {
-	GetMesh()->bPauseAnims=true;
+
 }
 
 void AAIChildCharacter::TickMove(const float& DeltaTime)
@@ -93,7 +99,13 @@ void AAIChildCharacter::TickMove(const float& DeltaTime)
 }
 void AAIChildCharacter::SetMoveState()
 {
+	GetMesh()->bPauseAnims = false;
 	SetState(EAIChildCharacterState::MOVE);
+}
+void AAIChildCharacter::SetStopState()
+{
+	GetMesh()->bPauseAnims = true;
+	SetState(EAIChildCharacterState::STOP);
 }
 void AAIChildCharacter::SetState(EAIChildCharacterState NextState)
 {
@@ -122,6 +134,9 @@ void AAIChildCharacter::TickComplete(const float& DeltaTime)
 }
 
 void AAIChildCharacter::TickDie(const float& DeltaTime)
+{
+}
+void AAIChildCharacter::TickIdle(const float& DeltaTime)
 {
 }
 

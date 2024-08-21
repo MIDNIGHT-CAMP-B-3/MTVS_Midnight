@@ -8,6 +8,7 @@
 
 UENUM(BlueprintType)
 enum class EAIChildCharacterState :uint8 {
+	IDLE,
 	STOP ,
 	MOVE ,
 	Complete,
@@ -23,7 +24,7 @@ public:
 	// Sets default values for this character's properties
 	AAIChildCharacter();
 		UPROPERTY()
-		EAIChildCharacterState State = EAIChildCharacterState::STOP;
+		EAIChildCharacterState State = EAIChildCharacterState::IDLE;
 		UPROPERTY(EditAnywhere,category = "ChildCharacter")
 		float goalDistance;
 protected:
@@ -39,9 +40,11 @@ public:
 private:
 	FVector startLocation;
 	class UAIChildCharacterAnimInstance* anim;
+	void TickIdle(const float& DeltaTime);
 	void TickStop(const float& DeltaTime);
 	void TickMove(const float& DeltaTime);
 	void SetMoveState();
+	void SetStopState();
 	void SetState(EAIChildCharacterState NextState);
 	void TickComplete(const float& DeltaTime);
 	void TickDie(const float& DeltaTime);
