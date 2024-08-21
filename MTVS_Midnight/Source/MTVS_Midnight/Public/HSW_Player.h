@@ -32,6 +32,9 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	class UCameraComponent* CameraComp;
 
+	UPROPERTY(EditDefaultsOnly)
+	class UStaticMeshComponent* PlayerStaticMesh;
+
 	FRotator DefaultRotation = FRotator(0,-90.f,0);
 	FRotator LookBackRotation = FRotator(0, 90.f, 0);
 
@@ -39,8 +42,41 @@ public:
 
 	bool bCanLookBack;
 
+	bool bPlayingQuiz;
+
 	void TurnBack();
 	void LookForward();
 
+	//void StartUDPServer();
+
+	// 클라이언트 소켓
+    FSocket* ClientSocket;
+    // 서버 주소
+    TSharedPtr<FInternetAddr> ServerAddr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Default|Values")
+	FString serverIP = TEXT("192.168.1.87");//TEXT("127.0.0.1");
+    
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Default|Values")
+	int32 serverPort = 3333;
+
+// 	UFUNCTION(BlueprintCallable)
+// 	// 서버와 연결하기
+//     void CreateClient();
+//     // 데이터 받기
+//     UFUNCTION(BlueprintCallable)
+//     void ReceiveData();
+
+	float CurrentTime;
+	float MakeSoundTime;
+
+	bool bCanPlayingSound;
+	
+	UPROPERTY(EditDefaultsOnly)
+	UAudioComponent* MugungHwuaAudioComponent;
+
+	//UPROPERTY(EditDefaultsOnly)
+	//class UParticleSystem* MugungHwuaSoundFactory;
+
+	void SetMakeSoundTime();
 
 };

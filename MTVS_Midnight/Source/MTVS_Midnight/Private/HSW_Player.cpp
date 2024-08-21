@@ -4,6 +4,15 @@
 #include "HSW_Player.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+//#include "WebSocketModule.h"
+//#include "IWebSocket.h"
+//#include "Networking/Public/Networking.h"
+#include "Sockets.h"
+#include "SocketSubsystem.h"
+#include "IPAddress.h"
+#include "Interfaces/IPv4/IPv4Address.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/AudioComponent.h"
 
 // Sets default values
 AHSW_Player::AHSW_Player()
@@ -11,12 +20,16 @@ AHSW_Player::AHSW_Player()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	PlayerStaticMesh = CreateDefaultSubobject <UStaticMeshComponent>(TEXT("StaticMesh"));
+	PlayerStaticMesh->SetRelativeLocationAndRotation(FVector(0, 0, -90.f), FRotator(0, -90.f, 0));
+	PlayerStaticMesh->SetupAttachment(RootComponent);
+
 	// 스프링암을 생성해서 루트에 붙이고 싶다.
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
 	SpringArmComp->SetupAttachment(RootComponent);
 
-	SpringArmComp->SetRelativeLocation(FVector(130.f, 0.f, 120.f));
-	SpringArmComp->SetRelativeRotation(FRotator(-10.f, 180.f, 0.f));
+	SpringArmComp->SetRelativeLocation(FVector(696.f, 0.f, 540.f));
+	SpringArmComp->SetRelativeRotation(FRotator(-5.f, 180.f, 0.f));
 
 	SpringArmComp->TargetArmLength = 0;
 
@@ -29,7 +42,8 @@ AHSW_Player::AHSW_Player()
 void AHSW_Player::BeginPlay()
 {
 	Super::BeginPlay();
-	
+/*	StartUDPServer();*/
+/*	CreateClient();*/
 }
 
 // Called every frame
@@ -37,16 +51,26 @@ void AHSW_Player::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (bCanLookBack == true)
+	//StartUDPServer();
+
+	if ( (bCanLookBack == true) )//&& (bPlayingQuiz == false) && (!(MugungHwuaAudioComponent->IsPlaying())) 
 	{
-		GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), LookBackRotation, 0.1f));
+		PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), LookBackRotation, 0.1f));
+		//GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), LookBackRotation, 0.1f));
 		//SetActorRotation(FMath::Lerp(GetActorRotation(), LookBackRotation, 0.1f));
 	}
-	else
+	else if (bCanLookBack == false)
 	{
-		GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), DefaultRotation, 0.1f));
+		//if ((!(MugungHwuaAudioComponent->IsPlaying()))&&(bCanPlayingSound == true))
+		PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), DefaultRotation, 0.1f));
+		//GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), DefaultRotation, 0.1f));
 		//SetActorRotation(FMath::Lerp(GetActorRotation(), DefaultRotation, 0.1f));
 	}
+	
+	
+
+
+/*	ReceiveData();*/
 }
 
 // Called to bind functionality to input
@@ -85,3 +109,120 @@ void AHSW_Player::LookForward()
 //	SetActorRotation(defaultRotation);
 }
 
+void AHSW_Player::SetMakeSoundTime()
+{
+	//float randValue = FMath::FRandRange()
+}
+
+// void AHSW_Player::StartUDPServer()
+// {
+// 	FIPv4Address ip;
+// 	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("StartUDPServer"));
+// 	if (!FIPv4Address::Parse(TEXT("172.16.17.12"), ip))
+// 	{
+// 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("Invalid IP Address"));
+// 		return;
+// 	}
+// 
+// 	TSharedPtr<FInternetAddr> addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
+// 	addr->SetIp(ip.Value);
+// 	addr->SetPort(3333);
+// 
+// 	FSocket* Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_DGram, TEXT("UDP Server"), false);
+// 	if (!Socket)
+// 	{
+// 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("Failed to create socket"));
+// 		return;
+// 	}
+// 
+// 	bool result = Socket->Bind(*addr);
+// 	if (result)
+// 	{
+// 		//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("UDP Server Started at 172.16.17.12:3333"));
+// 		UE_LOG(LogTemp, Warning, TEXT("UDP Server Started at 172.16.17.12:3333"));
+// 
+// 		uint32 Size;
+// 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("%d"), Socket->HasPendingData(Size)));
+// 		while (Socket->HasPendingData(Size))
+// 		{
+// 			TArray<uint8> ReceivedData;
+// 			ReceivedData.SetNumUninitialized(FMath::Min(Size, 65507u));
+// 			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("whileloop"));
+// 
+// 			int32 BytesRead = 0;
+// 			if (Socket->Recv(ReceivedData.GetData(), ReceivedData.Num(), BytesRead))
+// 			{
+// 				// 수신된 데이터를 처리
+// 				FString ReceivedString = FString(UTF8_TO_TCHAR(ReceivedData.GetData()));
+// 				GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, ReceivedString);
+// 				GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, TEXT("ReceivedString"));
+// 			}
+// 			else
+// 			{
+// 				GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("Failed to receive data"));
+// 			}
+// 		}
+// 	}
+// 	else
+// 	{
+// 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("Binding failed"));
+// 	}
+// 
+// 	Socket->Close();  // 소켓 닫기
+// 	ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(Socket);  // 소켓 해제
+// }
+
+// void AHSW_Player::CreateClient()
+// {
+// 	// 클라이언트 소켓 생성
+// 	ClientSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("TCP Client"), false);
+// 	ServerAddr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
+// 
+// 
+// 	// 서버 IP와 포트 설정
+// 	FIPv4Address Ip;
+// 	FIPv4Address::Parse(serverIP, Ip); // 서버의 IP 주소 (예: localhost)
+// 	ServerAddr->SetIp(Ip.Value); // IP 주소 설정
+// 	ServerAddr->SetPort(serverPort); // 서버 포트:
+// 
+// 
+// 	// 서버에 연결
+// 	FString connStr = ClientSocket->Connect(*ServerAddr) ? TEXT("Sever Connected") : TEXT("Sever Failed.");
+// 
+// 
+// 	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, FString::Printf(TEXT("%s"), *connStr));
+// }
+// 
+// void AHSW_Player::ReceiveData()
+// {
+// 	if (ClientSocket)
+// 	{
+// 		GEngine->AddOnScreenDebugMessage(-1, -1.f, FColor::Green, TEXT("Exist Socket"));
+// 
+// 
+// 		// 데이터 있으면 가져오기
+// 		uint32 Size;
+// 		GEngine->AddOnScreenDebugMessage(-1, -1.f, FColor::Green, FString::Printf(TEXT("%d"), ClientSocket->HasPendingData(Size)));
+// 		while (ClientSocket->HasPendingData(Size))
+// 		{
+// 			TArray<uint8> ReceivedData;
+// 			ReceivedData.SetNumUninitialized(FMath::Min(Size, 1024u));
+// 
+// 
+// 			// 데이터 수신
+// 			int32 BytesRead = 0;
+// 			ClientSocket->Recv(ReceivedData.GetData(), ReceivedData.Num(), BytesRead);
+// 			// 논블락, 이벤트 드리븐, 
+// 
+// 			FString ReceivedString = FString(ANSI_TO_TCHAR(reinterpret_cast<const char*>(ReceivedData.GetData())));
+// 			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, FString::Printf(TEXT("jk_____Received: %s"), *ReceivedString));
+// 			// @@ 이 데이터를 사용하기
+// 
+// 		}
+// 	}
+// 	else
+// 	{
+// 		GEngine->AddOnScreenDebugMessage(-1, -1.f, FColor::Green, TEXT("No Socket"));
+// 	}
+// 
+// }

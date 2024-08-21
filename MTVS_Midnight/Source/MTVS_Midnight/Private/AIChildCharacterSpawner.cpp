@@ -22,10 +22,16 @@ void AAIChildCharacterSpawner::BeginPlay()
 	// //player->bCanLookBack == 0 
 	// //bCanMove = true -> Select one move
 	FActorSpawnParameters SpawnParams;
-	characterAI1 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(50, 0.f, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, 50.f, 0)), GetActorRotation());
-	characterAI2 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(150.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, 150.f, 0)), GetActorRotation());
-	characterAI3 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(-50.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, -50.f, 0)), GetActorRotation());
-	characterAI4 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(-150.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, -150.f, 0)), GetActorRotation());
+	characterAI1 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(200, 0.f, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, 50.f, 0)), GetActorRotation());
+	if(NewSkeletalMesh1)
+		characterAI1->NewSkeletalMesh = NewSkeletalMesh1;
+	characterAI2 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(600.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, 150.f, 0)), GetActorRotation());
+	if (NewSkeletalMesh2)
+		characterAI2->NewSkeletalMesh = NewSkeletalMesh2;
+	characterAI3 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(-200.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, -50.f, 0)), GetActorRotation());
+	if (NewSkeletalMesh3)
+		characterAI3->NewSkeletalMesh = NewSkeletalMesh3;
+	characterAI4 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(-600.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, -150.f, 0)), GetActorRotation());
 	CheckSpeed(1);
 	CheckSpeed(2);
 	CheckSpeed(3);
@@ -36,6 +42,42 @@ void AAIChildCharacterSpawner::BeginPlay()
 		bCanLookBack = player->bCanLookBack;
 	FTimerHandle TimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AAIChildCharacterSpawner::SetStart, 3, false);
+}
+void AAIChildCharacterSpawner::TouchEnemy(int32 num)
+{
+	if (touchEnemyNum == 0)
+	{
+		touchEnemyNum = num;
+	}
+	else if (touchEnemyNum == num)
+	{
+		touchEnemyNumCount++;
+		if (touchEnemyNumCount >= 10)
+		{
+			switch (touchEnemyNum)
+			{
+			case 1:
+				characterAI4->TouchEnemy();
+				break;
+			case 2:
+				characterAI3->TouchEnemy();
+				break;
+			case 3:
+				characterAI1->TouchEnemy();
+				break;
+			case 4:
+				characterAI2->TouchEnemy();
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	else
+	{
+		touchEnemyNumCount = 0;
+		touchEnemyNum = num;
+	}
 }
 void AAIChildCharacterSpawner::SetStart()
 {
