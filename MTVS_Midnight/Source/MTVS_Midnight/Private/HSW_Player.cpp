@@ -61,7 +61,7 @@ void AHSW_Player::Tick(float DeltaTime)
 	}
 	else if (bCanLookBack == false)
 	{
-		if ((!(MugungHwuaAudioComponent->IsPlaying()))&&(bCanPlayingSound == true))
+		//if ((!(MugungHwuaAudioComponent->IsPlaying()))&&(bCanPlayingSound == true))
 		PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), DefaultRotation, 0.1f));
 		//GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), DefaultRotation, 0.1f));
 		//SetActorRotation(FMath::Lerp(GetActorRotation(), DefaultRotation, 0.1f));

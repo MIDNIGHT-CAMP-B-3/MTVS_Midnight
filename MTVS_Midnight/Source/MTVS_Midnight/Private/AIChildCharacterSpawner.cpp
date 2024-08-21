@@ -57,16 +57,16 @@ void AAIChildCharacterSpawner::TouchEnemy(int32 num)
 			switch (touchEnemyNum)
 			{
 			case 1:
-				characterAI1->TouchEnemy();
+				characterAI4->TouchEnemy();
 				break;
 			case 2:
-				characterAI2->TouchEnemy();
-				break;
-			case 3:
 				characterAI3->TouchEnemy();
 				break;
+			case 3:
+				characterAI1->TouchEnemy();
+				break;
 			case 4:
-				characterAI4->TouchEnemy();
+				characterAI2->TouchEnemy();
 				break;
 			default:
 				break;

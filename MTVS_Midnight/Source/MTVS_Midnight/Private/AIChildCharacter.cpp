@@ -108,18 +108,21 @@ void AAIChildCharacter::ApplySkeletalMesh()
 			// 메시를 변경
 			GetMesh()->SetSkeletalMesh(NewSkeletalMesh);
 			GetMesh()->SetAnimInstanceClass(AnimInstanceClass1);
+			anim = Cast<UAIChildCharacterAnimInstance>(GetMesh()->GetAnimInstance());
 		}else
 		if (EnemyActors.Num() == 2)
 		{
 			// 메시를 변경
 			GetMesh()->SetSkeletalMesh(NewSkeletalMesh2);
 			GetMesh()->SetAnimInstanceClass(AnimInstanceClass2);
+			anim = Cast<UAIChildCharacterAnimInstance>(GetMesh()->GetAnimInstance());
 		}else
 		if (EnemyActors.Num() == 3)
 		{
 			// 메시를 변경
 			GetMesh()->SetSkeletalMesh(NewSkeletalMesh3);
 			GetMesh()->SetAnimInstanceClass(AnimInstanceClass3);
+			anim = Cast<UAIChildCharacterAnimInstance>(GetMesh()->GetAnimInstance());
 		}
 
 	}
@@ -178,7 +181,7 @@ void AAIChildCharacter::Tick(float DeltaTime)
 				if (bCanMove && randNum <= 5)
 				{
 					//1초 후에 멈추기
-					FTimerHandle stopTimerHandle;
+					
 					float randNumFloat = FMath::RandRange(1.0f, 1.5f);
 					GetWorld()->GetTimerManager().SetTimer(stopTimerHandle, this, &AAIChildCharacter::SetStopState, randNumFloat, false);
 				}
@@ -212,6 +215,7 @@ void AAIChildCharacter::TouchEnemy()
 	if (bCanMove)
 	{
 		SetState(EAIChildCharacterState::Selected);
+		bCanMove = false;
 	}
 	else
 	{
@@ -253,6 +257,10 @@ void AAIChildCharacter::SetStopState()
 	GetMesh()->bPauseAnims = true;
 	SetState(EAIChildCharacterState::STOP);
 }
+void AAIChildCharacter::SetMissionState()
+{
+	SetState(EAIChildCharacterState::Mission);
+}
 void AAIChildCharacter::SetState(EAIChildCharacterState NextState)
 {
 	EAIChildCharacterState prevState = State;
@@ -283,6 +291,8 @@ void AAIChildCharacter::SetState(EAIChildCharacterState NextState)
 		break;
 	case EAIChildCharacterState::Selected:
 		//놀라는 애니메이션 실행
+		GetWorld()->GetTimerManager().ClearTimer(stopTimerHandle);
+		GetMesh()->bPauseAnims = false;
 		anim->Montage_Play(anim->surprisedMontage, 2.0f);
 		break;
 	case EAIChildCharacterState::Mission:
@@ -305,11 +315,8 @@ void AAIChildCharacter::TickComplete(const float& DeltaTime)
 	FVector NewLocation = FMath::VInterpTo(GetActorLocation(), EndLocation, DeltaTime, Speed);
 	SetActorLocation(NewLocation);
 
-
-	if (FVector::Dist(GetActorLocation(), NewLocation) < 100.0f)
-	{
-		SetState(EAIChildCharacterState::Mission);
-	}
+	FTimerHandle stopTimerHandle1;
+	GetWorld()->GetTimerManager().SetTimer(stopTimerHandle1, this, &AAIChildCharacter::SetMissionState, 1.5f, false);
 }
 void AAIChildCharacter::TickSelected(const float& DeltaTime)
 {

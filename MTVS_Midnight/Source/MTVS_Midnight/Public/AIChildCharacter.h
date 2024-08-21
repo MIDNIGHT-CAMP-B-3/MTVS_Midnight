@@ -21,6 +21,8 @@ UCLASS()
 class MTVS_MIDNIGHT_API AAIChildCharacter : public ACharacter
 {
 	GENERATED_BODY()
+	FTimerHandle stopTimerHandle;
+
 	FVector StartLocation;
 	FVector EndLocation;
 	bool bCanLookBack;
@@ -79,6 +81,7 @@ private:
 	void TickMove(const float& DeltaTime);
 	void SetMoveState();
 	void SetStopState();
+	void SetMissionState();
 	void SetState(EAIChildCharacterState NextState);
 	void TickComplete(const float& DeltaTime);
 	void TickSelected(const float& DeltaTime);

@@ -74,8 +74,8 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	UAudioComponent* MugungHwuaAudioComponent;
 
-	UPROPERTY(EditDefaultsOnly)
-	class UParticleSystem* MugungHwuaSoundFactory;
+	//UPROPERTY(EditDefaultsOnly)
+	//class UParticleSystem* MugungHwuaSoundFactory;
 
 	void SetMakeSoundTime();
 
