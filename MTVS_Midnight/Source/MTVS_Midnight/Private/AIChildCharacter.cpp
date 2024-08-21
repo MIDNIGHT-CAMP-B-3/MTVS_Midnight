@@ -10,16 +10,17 @@ AAIChildCharacter::AAIChildCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	//mesh 에서 퀸을 로드해서 넣고 싶다.
-	ConstructorHelpers::FObjectFinder<USkeletalMesh> Finder(TEXT("/Script/Engine.SkeletalMesh'/Game/Mingi/Characters/Npcs/Walking__4_.Walking__4_'"));
+	ConstructorHelpers::FObjectFinder<USkeletalMesh> Finder(TEXT("/Script/Engine.SkeletalMesh'/Game/LSJ/Character/Walking__8_.Walking__8_'"));
 	if (Finder.Succeeded())
 	{
 		GetMesh()->SetSkeletalMesh(Finder.Object);
-		GetMesh()->SetRelativeLocationAndRotation(FVector(0, 0, -90.f), FRotator(0, -90.f, 0));
+		GetMesh()->SetRelativeScale3D(FVector(0.5f, 0.5f, 0.5f));
+		GetMesh()->SetRelativeLocationAndRotation(FVector(0, 0, -100.f), FRotator(0, -90.f, 0));
 		GetMesh()->SetRelativeScale3D(FVector(.8, 0.8, 0.8));
 	}
 
 
-	ConstructorHelpers::FClassFinder<UAnimInstance> animFinder(TEXT("/Script/Engine.AnimBlueprint'/Game/LSJ/ABP_AIChild.ABP_AIChild_C'"));
+	ConstructorHelpers::FClassFinder<UAnimInstance> animFinder(TEXT("/Script/Engine.AnimBlueprint'/Game/LSJ/ABP_AIChildRed.ABP_AIChildRed_C'"));
 	if (animFinder.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(animFinder.Class);
@@ -51,7 +52,9 @@ void AAIChildCharacter::BeginPlay()
 	moveSpeed = randNum;
 	float randFloat = FMath::RandRange(0.1, 1.0);
 	randomScaleSpeed= randFloat;
-	UE_LOG(LogTemp, Error, TEXT("%f"), moveSpeed);
+
+	int32 randNumWalkStyle = FMath::RandRange(0, 1);
+	randNumWalkStyle?walkStyle1=true:walkStyle2=true;
 }
 
 // Called every frame
@@ -138,7 +141,7 @@ void AAIChildCharacter::TickMove(const float& DeltaTime)
 		return;
 	}
 	direction.Normalize();
-
+	UE_LOG(LogTemp, Error, TEXT("%f"), moveSpeed);
 	AddMovementInput(direction * 0.5, randomScaleSpeed);
 	//EPathFollowingRequestResult::Type result = enemyAIController->MoveToLocation(player->GetActorLocation());
 }

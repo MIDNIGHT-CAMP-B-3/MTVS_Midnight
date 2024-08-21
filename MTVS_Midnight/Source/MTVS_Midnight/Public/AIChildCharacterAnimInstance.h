@@ -17,4 +17,10 @@ public:
 	virtual void NativeUpdateAnimation(float DeltaSeconds);
 	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
 	float Speed;
+		UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
+	float PlayRateWalk;
+			UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
+	bool walkStyle1;
+				UPROPERTY(EditDefaultsOnly,BlueprintReadWrite)
+	bool walkStyle2;
 };

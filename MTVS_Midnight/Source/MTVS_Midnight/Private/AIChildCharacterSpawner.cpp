@@ -22,10 +22,10 @@ void AAIChildCharacterSpawner::BeginPlay()
 	// //player->bCanLookBack == 0 
 	// //bCanMove = true -> Select one move
 	FActorSpawnParameters SpawnParams;
-	characterAI1 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(0, 50.f, 0)), GetActorRotation());
-	characterAI2 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(0, 150.f, 0)), GetActorRotation());
-	characterAI3 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(0, -50.f, 0)), GetActorRotation());
-	characterAI4 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(0, -150.f, 0)), GetActorRotation());
+	characterAI1 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(50, 0.f, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, 50.f, 0)), GetActorRotation());
+	characterAI2 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(150.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, 150.f, 0)), GetActorRotation());
+	characterAI3 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(-50.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, -50.f, 0)), GetActorRotation());
+	characterAI4 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(-150.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, -150.f, 0)), GetActorRotation());
 	CheckSpeed(1);
 	CheckSpeed(2);
 	CheckSpeed(3);
