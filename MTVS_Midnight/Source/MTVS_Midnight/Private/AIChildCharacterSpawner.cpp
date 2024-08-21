@@ -43,6 +43,42 @@ void AAIChildCharacterSpawner::BeginPlay()
 	FTimerHandle TimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AAIChildCharacterSpawner::SetStart, 3, false);
 }
+void AAIChildCharacterSpawner::TouchEnemy(int32 num)
+{
+	if (touchEnemyNum == 0)
+	{
+		touchEnemyNum = num;
+	}
+	else if (touchEnemyNum == num)
+	{
+		touchEnemyNumCount++;
+		if (touchEnemyNumCount >= 10)
+		{
+			switch (touchEnemyNum)
+			{
+			case 1:
+				characterAI1->TouchEnemy();
+				break;
+			case 2:
+				characterAI2->TouchEnemy();
+				break;
+			case 3:
+				characterAI3->TouchEnemy();
+				break;
+			case 4:
+				characterAI4->TouchEnemy();
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	else
+	{
+		touchEnemyNumCount = 0;
+		touchEnemyNum = num;
+	}
+}
 void AAIChildCharacterSpawner::SetStart()
 {
 	bGameStart = true;

@@ -17,6 +17,9 @@ class MTVS_MIDNIGHT_API AAIChildCharacterSpawner : public AActor
 	class AAIChildCharacter* characterAI3;
 	class AAIChildCharacter* characterAI4;
 	class AHSW_Player* player;
+
+	int32 touchEnemyNumCount = 0;
+	int32 touchEnemyNum=0;
 public:	
 	// Sets default values for this actor's properties
 	AAIChildCharacterSpawner();
@@ -29,6 +32,8 @@ protected:
 	void SetStart();
 	void CheckSpeed(int32 numAI);
 public:
+	//적 선택 과정
+	void TouchEnemy(int32 num);
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
     USkeletalMesh* NewSkeletalMesh1;
 	    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
