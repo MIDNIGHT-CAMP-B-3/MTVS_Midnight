@@ -95,6 +95,8 @@ void AHSW_Player::Tick(float DeltaTime)
 			MugungHwuaAudioComponent->Play();
 		}
 		GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Magenta, FString::Printf(TEXT("%f"),CurrentTime));
+		//if ((!(MugungHwuaAudioComponent->IsPlaying()))&&(bCanPlayingSound == true))
+
 		PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), DefaultRotation, 0.1f));
 		//GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), DefaultRotation, 0.1f));
 		//SetActorRotation(FMath::Lerp(GetActorRotation(), DefaultRotation, 0.1f));

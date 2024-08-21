@@ -6,10 +6,22 @@
 #include "Components/Button.h"
 #include "Components/Image.h"
 #include "Kismet/GameplayStatics.h"
+#include "QuizInstance.h"
+#include "QuizGameMode.h"
+#include "../QuizWidget.h"
+#include "../EndWidget.h"
+#include "UJsonParseLib.h"
+
+void UQuizWidget::BeginPlay()
+{
+    
+}
 
 void UQuizWidget::NativeConstruct()
 {
     Super::NativeConstruct();
+
+    HiddenQuestion();
 
     hp1->SetVisibility(ESlateVisibility::Visible);
     hp2->SetVisibility(ESlateVisibility::Visible);
@@ -77,6 +89,8 @@ void UQuizWidget::OnAnswerSelected(const FString& SelectedAnswer)
 void UQuizWidget::UpdatePlayTimeDisplay(float DeltaSeconds)
 {
     PlayTime += DeltaSeconds;
+    UE_LOG(LogTemp, Warning, TEXT("%f"), PlayTime);
+
     if (PlayTimeText)
     {
         PlayTimeText->SetText(FText::FromString(FString::Printf(TEXT("Play Time : %d"), static_cast<int32>(PlayTime))));
@@ -118,13 +132,27 @@ void UQuizWidget::HiddenFeedbackText()
     FeedbackText->SetVisibility(ESlateVisibility::Hidden);
 }
 
+void UQuizWidget::VisibleQuestion()
+{
+    QuestionText->SetVisibility(ESlateVisibility::Visible);
+    AnswerButton1->SetVisibility(ESlateVisibility::Visible);
+    AnswerButton2->SetVisibility(ESlateVisibility::Visible);
+}
+
+void UQuizWidget::HiddenQuestion()
+{
+    QuestionText->SetVisibility(ESlateVisibility::Hidden);
+    AnswerButton1->SetVisibility(ESlateVisibility::Hidden);
+    AnswerButton2->SetVisibility(ESlateVisibility::Hidden);
+}
+
 void UQuizWidget::PlayerDamage(int32 damage)
 {
     PlayerHP -= damage;
     
     if (PlayerHP == 2)
     {
-        if(hp3) hp3->SetVisibility(ESlateVisibility::Hidden);
+        if (hp3) hp3->SetVisibility(ESlateVisibility::Hidden);
     }
     else if (PlayerHP == 1)
     {
@@ -134,18 +162,33 @@ void UQuizWidget::PlayerDamage(int32 damage)
     {
         if (hp1) hp1->SetVisibility(ESlateVisibility::Hidden);
 
-        SwitchLevel();
+
+
+       // if(!quizIns) return;
+        quizIns = Cast<UQuizInstance>(GetGameInstance());
+        if (quizIns)
+        {
+            quizIns->playtime += PlayTime;
+            quizIns->score += Score;
+        }
+
+        QuizGM = Cast<AQuizGameMode>(GetWorld()->GetAuthGameMode());
+        QuizGM->ChangeWidget();
+
+
+        //QuizGM = Cast<AQuizGameMode>(GetWorld()->GetAuthGameMode());
+
+        //SwitchLevel();
     }
 }
 
-void UQuizWidget::SwitchLevel()
+
+void UQuizWidget::SetTextLog(FString log)
 {
-    // 이동할 레벨 이름을 설정합니다. "NextLevelName"을 원하는 레벨 이름으로 바꿉니다.
-    FString LevelName = "End";
-    
-    // UGameplayStatics를 사용하여 레벨 전환
-    if (!LevelName.IsEmpty())
-    {
-        UGameplayStatics::OpenLevel(GetWorld(), FName(*LevelName));
-    }
+    TextLog->SetText(FText::FromString(log));
+}
+
+void UQuizWidget::SetHttpActor(AChatbotHttpActor* actor)
+{
+    HttpActor = actor;
 }

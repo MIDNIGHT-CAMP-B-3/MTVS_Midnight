@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "QuizGameMode.h"
 #include "StartWidjet.generated.h"
 
 /**
@@ -22,4 +23,7 @@ public:
 
     UFUNCTION()
     void OnStartButtonClicked();
+
+    UPROPERTY()
+    class AQuizGameMode* QuizGM;
 };

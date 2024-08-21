@@ -83,6 +83,8 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	class USoundBase* MugunghwuaSFV;
 
+	//UPROPERTY(EditDefaultsOnly)
+	//class UParticleSystem* MugungHwuaSoundFactory;
 
 	void SetMakeSoundTime();
 

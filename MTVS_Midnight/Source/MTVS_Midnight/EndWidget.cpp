@@ -4,37 +4,35 @@
 #include "EndWidget.h"
 #include "Components/TextBlock.h"
 #include "QuizWidget.h"
+#include "QuizInstance.h"
+
+void UEndWidget::NativeBeginPlay()
+{
+	
+	quizIns = Cast<UQuizInstance>(GetGameInstance());
+
+}
 
 void UEndWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+	quizIns = Cast<UQuizInstance>(GetGameInstance());
+	//if(!quiz) return;
+	//if(!quizIns->QuizWidgetInstance) return;
+	//if (quiz /*&& quizIns->QuizWidgetInstance*/)
+	//{
+	//}
 
-	//EndScore = quiz->Score;
-	//ScoreText->SetText(FText::AsNumber(EndScore));
-	if(!quiz) return;
-
-	if (ScoreText && quiz)
-	{
-		ScoreText->SetText(FText::FromString(FString::Printf(TEXT("Score: %d"), quiz->Score)));
-		//UE_LOG(LogTemp, Warning, TEXT("End Score Text"));
-	}
-
-	if (PlayTimeText && quiz)
-	{
-		PlayTimeText->SetText(FText::FromString(FString::Printf(TEXT("Play Time: %d"), quiz->PlayTime)));
-		//UE_LOG(LogTemp, Warning, TEXT("Play Time Text"));
-	}
-
-    /*if (CorrectAnswerText)
-	{
-		CorrectAnswerText->SetText(FText::FromString(FString::Printf(TEXT(" %s"), quiz->CorrectAnswer)));
-    }*/
-
-    /*if (WrongAnswerText)
-    {
-        WrongAnswerText->SetText(FText::FromString(FString::Printf(TEXT(" %s"), quiz->)));
-    }*/
-
+		if (ScoreText)
+		{
+			ScoreText->SetText(FText::FromString(FString::Printf(TEXT("Score: %d"), quizIns->score)));
+			UE_LOG(LogTemp, Warning, TEXT("End Score Text"));
+		}
+		if (PlayTimeText)
+		{
+			PlayTimeText->SetText(FText::FromString(FString::Printf(TEXT("Play Time: %.f"), quizIns->playtime)));
+			UE_LOG(LogTemp, Warning, TEXT("Play Time Text"));
+		}
 }
 
 void UEndWidget::SetQuizWidgetReference(UQuizWidget* QuizWidget)

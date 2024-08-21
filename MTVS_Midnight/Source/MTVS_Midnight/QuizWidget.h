@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "QuizGameMode.h"
 #include "QuizWidget.generated.h"
 
 /**
@@ -23,6 +24,8 @@ public:
     void OnAnswerButton2Clicked();
 
 public:
+	virtual void BeginPlay() ;
+
     virtual void NativeConstruct() override;
 
     virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
@@ -45,13 +48,20 @@ public:
 
     // 퀴즈 질문 텍스트
     UPROPERTY(meta = (BindWidget))
+    class UBorder* QuestionBorder;
+
+    UPROPERTY(meta = (BindWidget))
     class UTextBlock* QuestionText;
+
 
     // 점수 텍스트
     UPROPERTY(meta = (BindWidget))
     class UTextBlock* ScoreText;
 
     // 정답/오답 피드백 텍스트
+    UPROPERTY(meta = (BindWidget))
+    class UBorder* FeedbackBorder;
+
     UPROPERTY(meta = (BindWidget))
     class UTextBlock* FeedbackText;
 
@@ -72,6 +82,9 @@ public:
 
     void HiddenFeedbackText();
 
+    void VisibleQuestion();
+    void HiddenQuestion();
+
     UPROPERTY(meta = (BindWidget))
     class UImage* hp1;
     UPROPERTY(meta = (BindWidget))
@@ -86,9 +99,28 @@ public:
     UFUNCTION()
     void PlayerDamage(int32 damage);
 
-    UFUNCTION()
-    void SwitchLevel();
+    UPROPERTY()
+    class UQuizInstance* quizIns;
 
+    UPROPERTY()
+    class AQuizGameMode* QuizGM;
+
+
+
+    UPROPERTY()
+	class AChatbotHttpActor* HttpActor;
+
+	UPROPERTY(meta=(BindWidget))
+	class UTextBlock* TextLog;
+
+    void SetTextLog(FString log);
+
+    void SetHttpActor(class AChatbotHttpActor* actor);
+
+
+    FString URL = "http://192.168.1.95:8000/chatbot/send_speech";
+    //FString Key = "";
+    //FString Key = "1B4jOfk0801JYukDA2FApT%2Bs0VOwrTVSE5qPJFlZ1mgXYs1UhkQ53Zj23EbsaJAITIcsaLGVB2gDGEMSk6IaDA%3D%3D";
 
 
 };

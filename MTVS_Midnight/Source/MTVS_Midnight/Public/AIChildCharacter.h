@@ -21,6 +21,10 @@ UCLASS()
 class MTVS_MIDNIGHT_API AAIChildCharacter : public ACharacter
 {
 	GENERATED_BODY()
+	FTimerHandle stopTimerHandle;
+
+	bool checkNum;
+
 	FVector StartLocation;
 	FVector EndLocation;
 	bool bCanLookBack;
@@ -53,15 +57,12 @@ public:
 	void TouchEnemy();
 	   // Skeletal Mesh 변수 선언 (블루프린트에서 설정 가능)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
-    USkeletalMesh* NewSkeletalMesh;
+    class USkeletalMesh* NewSkeletalMesh;
 	    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
-    USkeletalMesh* NewSkeletalMesh2;
+	class USkeletalMesh* NewSkeletalMesh2;
 	    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
-    USkeletalMesh* NewSkeletalMesh3;
-    // 블루프린트에서 호출 가능한 함수 선언
-
-	 // 블루프린트에서 설정할 수 있는 AnimInstance 클래스 변수
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
+	class  USkeletalMesh* NewSkeletalMesh3;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
     TSubclassOf<class UAIChildCharacterAnimInstance> AnimInstanceClass1;
 	    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
     TSubclassOf<class UAIChildCharacterAnimInstance> AnimInstanceClass2;
@@ -69,8 +70,21 @@ public:
     TSubclassOf<class UAIChildCharacterAnimInstance> AnimInstanceClass3;
 	    UFUNCTION(BlueprintCallable, Category = "SkeletalMesh")
     void ApplySkeletalMesh();
-private:
 
+		  UPROPERTY(EditAnywhere, Category = "Custom")
+    TSubclassOf<AActor> BalloonActorClass1;
+	  UPROPERTY(EditAnywhere, Category = "Custom")
+    TSubclassOf<AActor> BalloonActorClass2;
+	  UPROPERTY(EditAnywhere, Category = "Custom")
+    TSubclassOf<AActor> BalloonActorClass3;
+	  UPROPERTY(EditAnywhere, Category = "Custom")
+    TSubclassOf<AActor> BalloonActorClass4;
+	class  AActor* BalloonActorInstance1;
+	class AActor* BalloonActorInstance2;
+	class AActor* BalloonActorInstance3;
+	class AActor* BalloonActorInstance4;
+private:
+	TArray<class FString> words;
 	FVector startLocation;
 	class UAIChildCharacterAnimInstance* anim;
 	void TickIdle(const float& DeltaTime);
@@ -79,6 +93,7 @@ private:
 	void TickMove(const float& DeltaTime);
 	void SetMoveState();
 	void SetStopState();
+	void SetMissionState();
 	void SetState(EAIChildCharacterState NextState);
 	void TickComplete(const float& DeltaTime);
 	void TickSelected(const float& DeltaTime);

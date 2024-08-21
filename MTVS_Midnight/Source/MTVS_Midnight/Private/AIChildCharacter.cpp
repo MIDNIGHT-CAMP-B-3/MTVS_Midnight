@@ -93,6 +93,7 @@ void AAIChildCharacter::BeginPlay()
 	randNumWalkStyle?walkStyle1=true:walkStyle2=true;
 
 	ApplySkeletalMesh();
+
 }
 
 void AAIChildCharacter::ApplySkeletalMesh()
@@ -108,18 +109,21 @@ void AAIChildCharacter::ApplySkeletalMesh()
 			// 메시를 변경
 			GetMesh()->SetSkeletalMesh(NewSkeletalMesh);
 			GetMesh()->SetAnimInstanceClass(AnimInstanceClass1);
+			anim = Cast<UAIChildCharacterAnimInstance>(GetMesh()->GetAnimInstance());
 		}else
 		if (EnemyActors.Num() == 2)
 		{
 			// 메시를 변경
 			GetMesh()->SetSkeletalMesh(NewSkeletalMesh2);
 			GetMesh()->SetAnimInstanceClass(AnimInstanceClass2);
+			anim = Cast<UAIChildCharacterAnimInstance>(GetMesh()->GetAnimInstance());
 		}else
 		if (EnemyActors.Num() == 3)
 		{
 			// 메시를 변경
 			GetMesh()->SetSkeletalMesh(NewSkeletalMesh3);
 			GetMesh()->SetAnimInstanceClass(AnimInstanceClass3);
+			anim = Cast<UAIChildCharacterAnimInstance>(GetMesh()->GetAnimInstance());
 		}
 
 	}
@@ -134,7 +138,95 @@ void AAIChildCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	FString myState = UEnum::GetValueAsString(State);
-	DrawDebugString(GetWorld(), GetActorLocation(), myState, nullptr, FColor::Yellow, 0);
+	if (!checkNum)
+	{
+		if (numLine == 4)
+		{
+			if (BalloonActorClass1)
+			{
+				// 액터를 생성하고 캐릭터의 머리 위에 위치시킴
+				FVector SpawnLocation = GetActorLocation() + FVector(0.0f, 0.0f, 100.0f); // 캐릭터 머리 위 위치
+				FRotator SpawnRotation = FRotator::ZeroRotator;
+				FActorSpawnParameters SpawnParams;
+				SpawnParams.Owner = this;
+
+				BalloonActorInstance1 = GetWorld()->SpawnActor<AActor>(BalloonActorClass1, SpawnLocation, SpawnRotation, SpawnParams);
+
+				if (BalloonActorInstance1)
+				{
+					BalloonActorInstance1->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+					// 부모-자식 관계 설정
+					//BalloonActorInstance1->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepWorldTransform, "head_end"); // "head"는 스켈레탈 메쉬의 소켓 이름
+				}
+			}
+			checkNum = true;
+		}
+		else if (numLine == 3)
+		{
+			if (BalloonActorClass2)
+			{
+				// 액터를 생성하고 캐릭터의 머리 위에 위치시킴
+				FVector SpawnLocation = GetActorLocation() + FVector(0.0f, 0.0f, 100.0f); // 캐릭터 머리 위 위치
+				FRotator SpawnRotation = FRotator::ZeroRotator;
+				FActorSpawnParameters SpawnParams;
+				SpawnParams.Owner = this;
+
+				BalloonActorInstance2 = GetWorld()->SpawnActor<AActor>(BalloonActorClass2, SpawnLocation, SpawnRotation, SpawnParams);
+
+				if (BalloonActorInstance2)
+				{
+					BalloonActorInstance2->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+					// 부모-자식 관계 설정
+					//BalloonActorInstance2->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepWorldTransform, "head_end"); // "head"는 스켈레탈 메쉬의 소켓 이름
+				}
+			}
+			checkNum = true;
+		}
+		else if (numLine == 1)
+		{
+			if (BalloonActorClass3)
+			{
+				// 액터를 생성하고 캐릭터의 머리 위에 위치시킴
+				FVector SpawnLocation = GetActorLocation() + FVector(0.0f, 0.0f, 100.0f); // 캐릭터 머리 위 위치
+				FRotator SpawnRotation = FRotator::ZeroRotator;
+				FActorSpawnParameters SpawnParams;
+				SpawnParams.Owner = this;
+
+				BalloonActorInstance3 = GetWorld()->SpawnActor<AActor>(BalloonActorClass3, SpawnLocation, SpawnRotation, SpawnParams);
+
+				if (BalloonActorInstance3)
+				{
+					BalloonActorInstance3->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+					// 부모-자식 관계 설정
+					//BalloonActorInstance3->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepWorldTransform, "head_end"); // "head"는 스켈레탈 메쉬의 소켓 이름
+				}
+			}
+			checkNum = true;
+		}
+		else if (numLine == 2)
+		{
+			if (BalloonActorClass4)
+			{
+				// 액터를 생성하고 캐릭터의 머리 위에 위치시킴
+				FVector SpawnLocation = GetActorLocation() + FVector(0.0f, 0.0f, 100.0f); // 캐릭터 머리 위 위치
+				FRotator SpawnRotation = FRotator::ZeroRotator;
+				FActorSpawnParameters SpawnParams;
+				SpawnParams.Owner = this;
+
+				BalloonActorInstance4 = GetWorld()->SpawnActor<AActor>(BalloonActorClass4, SpawnLocation, SpawnRotation, SpawnParams);
+
+				if (BalloonActorInstance4)
+				{
+					BalloonActorInstance4->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+					// 부모-자식 관계 설정
+					//BalloonActorInstance4->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepWorldTransform, "head_end"); // "head"는 스켈레탈 메쉬의 소켓 이름
+				}
+			}
+			checkNum = true;
+		}
+	}
+	
+	//DrawDebugString(GetWorld(), GetActorLocation(), myState, nullptr, FColor::Yellow, 0);
 	switch (State)
 	{
 	case EAIChildCharacterState::IDLE:
@@ -178,7 +270,7 @@ void AAIChildCharacter::Tick(float DeltaTime)
 				if (bCanMove && randNum <= 5)
 				{
 					//1초 후에 멈추기
-					FTimerHandle stopTimerHandle;
+					
 					float randNumFloat = FMath::RandRange(1.0f, 1.5f);
 					GetWorld()->GetTimerManager().SetTimer(stopTimerHandle, this, &AAIChildCharacter::SetStopState, randNumFloat, false);
 				}
@@ -212,6 +304,7 @@ void AAIChildCharacter::TouchEnemy()
 	if (bCanMove)
 	{
 		SetState(EAIChildCharacterState::Selected);
+		bCanMove = false;
 	}
 	else
 	{
@@ -253,6 +346,10 @@ void AAIChildCharacter::SetStopState()
 	GetMesh()->bPauseAnims = true;
 	SetState(EAIChildCharacterState::STOP);
 }
+void AAIChildCharacter::SetMissionState()
+{
+	SetState(EAIChildCharacterState::Mission);
+}
 void AAIChildCharacter::SetState(EAIChildCharacterState NextState)
 {
 	EAIChildCharacterState prevState = State;
@@ -283,6 +380,8 @@ void AAIChildCharacter::SetState(EAIChildCharacterState NextState)
 		break;
 	case EAIChildCharacterState::Selected:
 		//놀라는 애니메이션 실행
+		GetWorld()->GetTimerManager().ClearTimer(stopTimerHandle);
+		GetMesh()->bPauseAnims = false;
 		anim->Montage_Play(anim->surprisedMontage, 2.0f);
 		break;
 	case EAIChildCharacterState::Mission:
@@ -290,6 +389,9 @@ void AAIChildCharacter::SetState(EAIChildCharacterState NextState)
 		//퀘스트가 끝나면 Die 로 
 		break;
 	case EAIChildCharacterState::Die:
+		StartLocation = GetActorLocation();
+		EndLocation = player->GetActorLocation() + GetActorForwardVector() * -400.f;
+		EndLocation.Z = GetActorLocation().Z;
 		break;
 	}
 }
@@ -305,11 +407,8 @@ void AAIChildCharacter::TickComplete(const float& DeltaTime)
 	FVector NewLocation = FMath::VInterpTo(GetActorLocation(), EndLocation, DeltaTime, Speed);
 	SetActorLocation(NewLocation);
 
-
-	if (FVector::Dist(GetActorLocation(), NewLocation) < 100.0f)
-	{
-		SetState(EAIChildCharacterState::Mission);
-	}
+	FTimerHandle stopTimerHandle1;
+	GetWorld()->GetTimerManager().SetTimer(stopTimerHandle1, this, &AAIChildCharacter::SetMissionState, 1.5f, false);
 }
 void AAIChildCharacter::TickSelected(const float& DeltaTime)
 {
