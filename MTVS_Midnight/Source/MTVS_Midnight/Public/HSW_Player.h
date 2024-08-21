@@ -32,6 +32,9 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	class UCameraComponent* CameraComp;
 
+	UPROPERTY(EditDefaultsOnly)
+	class UStaticMeshComponent* PlayerStaticMesh;
+
 	FRotator DefaultRotation = FRotator(0,-90.f,0);
 	FRotator LookBackRotation = FRotator(0, 90.f, 0);
 
