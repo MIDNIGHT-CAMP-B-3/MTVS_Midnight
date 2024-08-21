@@ -12,6 +12,7 @@
 #include "IPAddress.h"
 #include "Interfaces/IPv4/IPv4Address.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/AudioComponent.h"
 
 // Sets default values
 AHSW_Player::AHSW_Player()
@@ -52,7 +53,7 @@ void AHSW_Player::Tick(float DeltaTime)
 
 	//StartUDPServer();
 
-	if (bCanLookBack == true && bPlayingQuiz == false)
+	if ( (bCanLookBack == true) )//&& (bPlayingQuiz == false) && (!(MugungHwuaAudioComponent->IsPlaying())) 
 	{
 		PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), LookBackRotation, 0.1f));
 		//GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), LookBackRotation, 0.1f));
@@ -60,10 +61,15 @@ void AHSW_Player::Tick(float DeltaTime)
 	}
 	else if (bCanLookBack == false)
 	{
+		if ((!(MugungHwuaAudioComponent->IsPlaying()))&&(bCanPlayingSound == true))
 		PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), DefaultRotation, 0.1f));
 		//GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), DefaultRotation, 0.1f));
 		//SetActorRotation(FMath::Lerp(GetActorRotation(), DefaultRotation, 0.1f));
 	}
+	
+	
+
+
 /*	ReceiveData();*/
 }
 
@@ -101,6 +107,11 @@ void AHSW_Player::LookForward()
 	FRotator defaultRotation = FRotator(0.f, -90.f, 0.f);
 	GetMesh()->SetRelativeRotation(defaultRotation);
 //	SetActorRotation(defaultRotation);
+}
+
+void AHSW_Player::SetMakeSoundTime()
+{
+	//float randValue = FMath::FRandRange()
 }
 
 // void AHSW_Player::StartUDPServer()

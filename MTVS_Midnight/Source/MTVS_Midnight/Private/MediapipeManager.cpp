@@ -6,6 +6,8 @@
 #include "SocketSubsystem.h"
 #include "Interfaces/IPv4/IPv4Address.h"
 #include "HSW_Player.h"
+#include "Kismet/GameplayStatics.h"
+#include "AIChildCharacterSpawner.h"
 
 // Sets default values
 AMediapipeManager::AMediapipeManager()
@@ -23,9 +25,11 @@ void AMediapipeManager::BeginPlay()
 
 	Player = Cast<AHSW_Player>(GetWorld()->GetFirstPlayerController()->GetPawn());
 
+	ChildSpawner = Cast<AAIChildCharacterSpawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AAIChildCharacterSpawner::StaticClass()));
+
 	if (GEngine)
 	{
-		GEngine->bEnableOnScreenDebugMessages = false;
+		GEngine->bEnableOnScreenDebugMessages = true;
 	}
 }
 
@@ -85,14 +89,16 @@ void AMediapipeManager::ReceiveData()
 
 			if (ReceivedString[0] == TEXT('7')) 
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("LookBackTrue"));
+				//GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Cyan, TEXT("LookBackTrue"));
 				Player->bCanLookBack = true;
 			}
 			else
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("LookBackFalse"));
+				//GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Cyan, TEXT("LookBackFalse"));
 				Player->bCanLookBack = false;
 			}
+
+			ChildSpawner->TouchEnemy(ReceivedString[2]-TEXT('0'));
 			// @@ 이 데이터를 사용하기
 
 		}

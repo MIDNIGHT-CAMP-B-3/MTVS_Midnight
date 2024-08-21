@@ -44,4 +44,7 @@ public:
 	UPROPERTY()
 	class AHSW_Player* Player;
 
+	UPROPERTY()
+	class AAIChildCharacterSpawner* ChildSpawner;
+
 };

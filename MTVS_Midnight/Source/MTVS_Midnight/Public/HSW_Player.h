@@ -66,5 +66,17 @@ public:
 //     UFUNCTION(BlueprintCallable)
 //     void ReceiveData();
 
+	float CurrentTime;
+	float MakeSoundTime;
+
+	bool bCanPlayingSound;
+	
+	UPROPERTY(EditDefaultsOnly)
+	UAudioComponent* MugungHwuaAudioComponent;
+
+	UPROPERTY(EditDefaultsOnly)
+	class UParticleSystem* MugungHwuaSoundFactory;
+
+	void SetMakeSoundTime();
 
 };
