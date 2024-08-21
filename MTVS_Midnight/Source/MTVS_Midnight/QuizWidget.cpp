@@ -11,6 +11,8 @@
 #include "../QuizWidget.h"
 #include "../EndWidget.h"
 #include "UJsonParseLib.h"
+#include "Components/Border.h"
+#include "HeartActor.h"
 
 void UQuizWidget::BeginPlay()
 {
@@ -118,7 +120,7 @@ void UQuizWidget::ShowFeedback(bool bIsCorrect)
         {
             FeedbackText->SetText(FText::FromString("Wrong!"));
         }
-
+        FeedbackBorder->SetVisibility(ESlateVisibility::Visible);
         FeedbackText->SetVisibility(ESlateVisibility::Visible);
 
         // 일정 시간 후 피드백 숨기기 (비동기적으로 처리 가능)
@@ -129,11 +131,13 @@ void UQuizWidget::ShowFeedback(bool bIsCorrect)
 
 void UQuizWidget::HiddenFeedbackText()
 {
+    FeedbackBorder->SetVisibility(ESlateVisibility::Hidden);
     FeedbackText->SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UQuizWidget::VisibleQuestion()
 {
+    QuestionBorder->SetVisibility(ESlateVisibility::Visible);
     QuestionText->SetVisibility(ESlateVisibility::Visible);
     AnswerButton1->SetVisibility(ESlateVisibility::Visible);
     AnswerButton2->SetVisibility(ESlateVisibility::Visible);
@@ -141,6 +145,7 @@ void UQuizWidget::VisibleQuestion()
 
 void UQuizWidget::HiddenQuestion()
 {
+    QuestionBorder->SetVisibility(ESlateVisibility::Hidden);
     QuestionText->SetVisibility(ESlateVisibility::Hidden);
     AnswerButton1->SetVisibility(ESlateVisibility::Hidden);
     AnswerButton2->SetVisibility(ESlateVisibility::Hidden);
@@ -148,19 +153,20 @@ void UQuizWidget::HiddenQuestion()
 
 void UQuizWidget::PlayerDamage(int32 damage)
 {
+
     PlayerHP -= damage;
     
     if (PlayerHP == 2)
     {
-        if (hp3) hp3->SetVisibility(ESlateVisibility::Hidden);
+        if (hp3) hp3->SetVisibility(ESlateVisibility::Hidden); Hearts->Heart3->DestroyComponent(true);
     }
     else if (PlayerHP == 1)
     {
-        if (hp2) hp2->SetVisibility(ESlateVisibility::Hidden);
+        if (hp2) hp2->SetVisibility(ESlateVisibility::Hidden); Hearts->Heart2->DestroyComponent(true);
     }
     else if (PlayerHP <= 0)
     {
-        if (hp1) hp1->SetVisibility(ESlateVisibility::Hidden);
+        if (hp1) hp1->SetVisibility(ESlateVisibility::Hidden); Hearts->Heart1->DestroyComponent(true);
 
 
 

@@ -104,7 +104,9 @@ public:
 
     UPROPERTY()
     class AQuizGameMode* QuizGM;
-
+    
+    UPROPERTY()
+    class AHeartActor* Hearts;
 
 
     UPROPERTY()
