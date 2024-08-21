@@ -10,6 +10,7 @@
 #include "QuizGameMode.h"
 #include "../QuizWidget.h"
 #include "../EndWidget.h"
+#include "UJsonParseLib.h"
 
 void UQuizWidget::BeginPlay()
 {
@@ -181,3 +182,13 @@ void UQuizWidget::PlayerDamage(int32 damage)
     }
 }
 
+
+void UQuizWidget::SetTextLog(FString log)
+{
+    TextLog->SetText(FText::FromString(log));
+}
+
+void UQuizWidget::SetHttpActor(AChatbotHttpActor* actor)
+{
+    HttpActor = actor;
+}

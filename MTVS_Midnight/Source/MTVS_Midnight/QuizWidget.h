@@ -48,16 +48,20 @@ public:
 
     // 퀴즈 질문 텍스트
     UPROPERTY(meta = (BindWidget))
+    class UBorder* QuestionBorder;
+
+    UPROPERTY(meta = (BindWidget))
     class UTextBlock* QuestionText;
 
-    /*UPROPERTY(meta = (BindWidget))
-    class UBorder*/
 
     // 점수 텍스트
     UPROPERTY(meta = (BindWidget))
     class UTextBlock* ScoreText;
 
     // 정답/오답 피드백 텍스트
+    UPROPERTY(meta = (BindWidget))
+    class UBorder* FeedbackBorder;
+
     UPROPERTY(meta = (BindWidget))
     class UTextBlock* FeedbackText;
 
@@ -100,5 +104,23 @@ public:
 
     UPROPERTY()
     class AQuizGameMode* QuizGM;
+
+
+
+    UPROPERTY()
+	class AChatbotHttpActor* HttpActor;
+
+	UPROPERTY(meta=(BindWidget))
+	class UTextBlock* TextLog;
+
+    void SetTextLog(FString log);
+
+    void SetHttpActor(class AChatbotHttpActor* actor);
+
+
+    FString URL = "http://192.168.1.95:8000/chatbot/send_speech";
+    //FString Key = "";
+    //FString Key = "1B4jOfk0801JYukDA2FApT%2Bs0VOwrTVSE5qPJFlZ1mgXYs1UhkQ53Zj23EbsaJAITIcsaLGVB2gDGEMSk6IaDA%3D%3D";
+
 
 };
