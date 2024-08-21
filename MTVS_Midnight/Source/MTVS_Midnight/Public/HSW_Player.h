@@ -83,6 +83,9 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	class USoundBase* MugunghwuaSFV;
 
+	UPROPERTY(EditDefaultsOnly)
+	class USoundBase* CheckSFV;
+
 	//UPROPERTY(EditDefaultsOnly)
 	//class UParticleSystem* MugungHwuaSoundFactory;
 
