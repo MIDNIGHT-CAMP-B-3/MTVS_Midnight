@@ -21,7 +21,7 @@ void UStartWidjet::OnStartButtonClicked()
 {   
 	//QuizGM = Cast<AQuizGameMode>(GetWorld()->GetAuthGameMode());
 
-    FString LevelName = "LHM_Map";
+    FString LevelName = "Min_LSJEnvironment";
 
     // UGameplayStatics를 사용하여 레벨 전환
     if (!LevelName.IsEmpty())
