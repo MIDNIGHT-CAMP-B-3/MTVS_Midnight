@@ -49,6 +49,24 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void SetCompleteState();
 	void TouchEnemy();
+	   // Skeletal Mesh 변수 선언 (블루프린트에서 설정 가능)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
+    USkeletalMesh* NewSkeletalMesh;
+	    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
+    USkeletalMesh* NewSkeletalMesh2;
+	    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
+    USkeletalMesh* NewSkeletalMesh3;
+    // 블루프린트에서 호출 가능한 함수 선언
+
+	 // 블루프린트에서 설정할 수 있는 AnimInstance 클래스 변수
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
+    TSubclassOf<class UAIChildCharacterAnimInstance> AnimInstanceClass1;
+	    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
+    TSubclassOf<class UAIChildCharacterAnimInstance> AnimInstanceClass2;
+	    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
+    TSubclassOf<class UAIChildCharacterAnimInstance> AnimInstanceClass3;
+	    UFUNCTION(BlueprintCallable, Category = "SkeletalMesh")
+    void ApplySkeletalMesh();
 private:
 
 	FVector startLocation;

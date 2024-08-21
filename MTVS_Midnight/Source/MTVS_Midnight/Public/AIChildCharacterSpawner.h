@@ -29,6 +29,12 @@ protected:
 	void SetStart();
 	void CheckSpeed(int32 numAI);
 public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
+    USkeletalMesh* NewSkeletalMesh1;
+	    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
+    USkeletalMesh* NewSkeletalMesh2;
+	    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SkeletalMesh")
+    USkeletalMesh* NewSkeletalMesh3;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

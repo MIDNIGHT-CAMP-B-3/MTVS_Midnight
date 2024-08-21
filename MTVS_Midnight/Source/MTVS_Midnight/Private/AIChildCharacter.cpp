@@ -91,6 +91,42 @@ void AAIChildCharacter::BeginPlay()
 
 	int32 randNumWalkStyle = FMath::RandRange(0, 1);
 	randNumWalkStyle?walkStyle1=true:walkStyle2=true;
+
+	ApplySkeletalMesh();
+}
+
+void AAIChildCharacter::ApplySkeletalMesh()
+{
+	if (NewSkeletalMesh && NewSkeletalMesh2 && NewSkeletalMesh3)
+	{
+		TArray<AActor*> EnemyActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AAIChildCharacter::StaticClass(), EnemyActors);
+
+		// 적 캐릭터의 수 반환
+		if (EnemyActors.Num() == 1)
+		{
+			// 메시를 변경
+			GetMesh()->SetSkeletalMesh(NewSkeletalMesh);
+			GetMesh()->SetAnimInstanceClass(AnimInstanceClass1);
+		}else
+		if (EnemyActors.Num() == 2)
+		{
+			// 메시를 변경
+			GetMesh()->SetSkeletalMesh(NewSkeletalMesh2);
+			GetMesh()->SetAnimInstanceClass(AnimInstanceClass2);
+		}else
+		if (EnemyActors.Num() == 3)
+		{
+			// 메시를 변경
+			GetMesh()->SetSkeletalMesh(NewSkeletalMesh3);
+			GetMesh()->SetAnimInstanceClass(AnimInstanceClass3);
+		}
+
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("NewSkeletalMesh is not set!"));
+	}
 }
 
 // Called every frame
@@ -138,11 +174,10 @@ void AAIChildCharacter::Tick(float DeltaTime)
 				int32 randNum = FMath::RandRange(1, 10);
 				if (bCanMove && randNum <= 5)
 				{
-					SetState(EAIChildCharacterState::Selected);
 					//1초 후에 멈추기
-				/*	FTimerHandle stopTimerHandle;
+					FTimerHandle stopTimerHandle;
 					float randNumFloat = FMath::RandRange(1.0f, 1.5f);
-					GetWorld()->GetTimerManager().SetTimer(stopTimerHandle, this, &AAIChildCharacter::SetStopState, randNumFloat, false);*/
+					GetWorld()->GetTimerManager().SetTimer(stopTimerHandle, this, &AAIChildCharacter::SetStopState, randNumFloat, false);
 				}
 				else
 				{
