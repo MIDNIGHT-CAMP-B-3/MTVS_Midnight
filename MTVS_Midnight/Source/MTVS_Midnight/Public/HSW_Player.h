@@ -42,6 +42,8 @@ public:
 
 	bool bCanLookBack;
 
+	bool bPlayingQuiz;
+
 	void TurnBack();
 	void LookForward();
 
