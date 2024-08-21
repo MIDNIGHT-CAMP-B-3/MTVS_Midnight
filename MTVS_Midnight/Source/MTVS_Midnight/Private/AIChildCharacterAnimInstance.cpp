@@ -16,4 +16,9 @@ void UAIChildCharacterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	FVector forwardVector = owner->GetActorForwardVector();
 	//앞뒤 속도 //max speed 600
 	Speed = FVector::DotProduct(forwardVector, velocity);
+	UE_LOG(LogTemp, Error, TEXT("%f"), Speed);
+	PlayRateWalk=owner->randomScaleSpeed * 1.5;
+
+	walkStyle1 = owner->walkStyle1;
+	walkStyle2 = owner->walkStyle2;
 }

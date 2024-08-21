@@ -24,6 +24,8 @@ class MTVS_MIDNIGHT_API AAIChildCharacter : public ACharacter
 	bool bGameStart;
 	class AHSW_Player* player;
 public:
+	bool walkStyle1;
+	bool walkStyle2;
 	float randomScaleSpeed = 1.0f;
 	float moveSpeed = 10.0f;
 	// Sets default values for this character's properties
