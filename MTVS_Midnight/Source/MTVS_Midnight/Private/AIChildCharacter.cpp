@@ -155,6 +155,9 @@ void AAIChildCharacter::Tick(float DeltaTime)
 	case EAIChildCharacterState::Selected:
 		TickSelected(DeltaTime);
 		break;
+	case EAIChildCharacterState::Mission:
+		TickMission(DeltaTime);
+		break;
 	}
 
 	if (player && bGameStart)
@@ -275,10 +278,15 @@ void AAIChildCharacter::SetState(EAIChildCharacterState NextState)
 		StartLocation = GetActorLocation();
 		EndLocation = player->GetActorLocation() + GetActorForwardVector() * -400.f;
 		EndLocation.Z = GetActorLocation().Z;
+
 		break;
 	case EAIChildCharacterState::Selected:
 		//놀라는 애니메이션 실행
 		anim->Montage_Play(anim->surprisedMontage, 2.0f);
+		break;
+	case EAIChildCharacterState::Mission:
+		//퀘스트 창
+		//퀘스트가 끝나면 Die 로 
 		break;
 	case EAIChildCharacterState::Die:
 		break;
@@ -295,6 +303,12 @@ void AAIChildCharacter::TickComplete(const float& DeltaTime)
 
 	FVector NewLocation = FMath::VInterpTo(GetActorLocation(), EndLocation, DeltaTime, Speed);
 	SetActorLocation(NewLocation);
+
+
+	if (FVector::Dist(GetActorLocation(), NewLocation) < 100.0f)
+	{
+		SetState(EAIChildCharacterState::Mission);
+	}
 }
 void AAIChildCharacter::TickSelected(const float& DeltaTime)
 {
@@ -309,4 +323,7 @@ void AAIChildCharacter::TickDie(const float& DeltaTime)
 void AAIChildCharacter::TickIdle(const float& DeltaTime)
 {
 }
+void AAIChildCharacter::TickMission(const float& DeltaTime)
+{
 
+}
