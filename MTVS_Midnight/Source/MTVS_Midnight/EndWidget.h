@@ -16,6 +16,7 @@ class MTVS_MIDNIGHT_API UEndWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
+    virtual void NativeBeginPlay();
 	virtual void NativeConstruct() override;
 
 
@@ -32,12 +33,7 @@ public:
     UPROPERTY(meta = (BindWidget))
     class UTextBlock* PlayTimeText;
 
-   // void SetScore(int32 score);
+    UPROPERTY()
+    class UQuizInstance* quizIns;
 
-    //int32 EndScore;
-    /*UPROPERTY(meta = (BindWidget))
-    class UTextBlock* CorrectAnswerText;
-    
-    UPROPERTY(meta = (BindWidget))
-    class UTextBlock* WrongAnswerText;*/
 };

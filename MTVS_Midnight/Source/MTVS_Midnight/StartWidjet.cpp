@@ -4,10 +4,12 @@
 #include "StartWidjet.h"
 #include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
+#include "QuizGameMode.h"
 
 void UStartWidjet::NativeConstruct()
 {
 	Super::NativeConstruct();
+
 
     if (StartButton)
     {
@@ -16,7 +18,9 @@ void UStartWidjet::NativeConstruct()
 }
 
 void UStartWidjet::OnStartButtonClicked()
-{
+{   
+	//QuizGM = Cast<AQuizGameMode>(GetWorld()->GetAuthGameMode());
+
     FString LevelName = "LHM_Map";
 
     // UGameplayStatics를 사용하여 레벨 전환

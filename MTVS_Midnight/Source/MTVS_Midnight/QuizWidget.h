@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "QuizGameMode.h"
 #include "QuizWidget.generated.h"
 
 /**
@@ -23,6 +24,8 @@ public:
     void OnAnswerButton2Clicked();
 
 public:
+	virtual void BeginPlay() ;
+
     virtual void NativeConstruct() override;
 
     virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
@@ -46,6 +49,9 @@ public:
     // 퀴즈 질문 텍스트
     UPROPERTY(meta = (BindWidget))
     class UTextBlock* QuestionText;
+
+    /*UPROPERTY(meta = (BindWidget))
+    class UBorder*/
 
     // 점수 텍스트
     UPROPERTY(meta = (BindWidget))
@@ -72,6 +78,9 @@ public:
 
     void HiddenFeedbackText();
 
+    void VisibleQuestion();
+    void HiddenQuestion();
+
     UPROPERTY(meta = (BindWidget))
     class UImage* hp1;
     UPROPERTY(meta = (BindWidget))
@@ -86,9 +95,10 @@ public:
     UFUNCTION()
     void PlayerDamage(int32 damage);
 
-    UFUNCTION()
-    void SwitchLevel();
+    UPROPERTY()
+    class UQuizInstance* quizIns;
 
-
+    UPROPERTY()
+    class AQuizGameMode* QuizGM;
 
 };
