@@ -4,10 +4,17 @@
 #include "QuizWidget.h"
 #include "Components/TextBlock.h"
 #include "Components/Button.h"
+#include "Components/Image.h"
+#include "Kismet/GameplayStatics.h"
 
 void UQuizWidget::NativeConstruct()
 {
     Super::NativeConstruct();
+
+    hp1->SetVisibility(ESlateVisibility::Visible);
+    hp2->SetVisibility(ESlateVisibility::Visible);
+    hp3->SetVisibility(ESlateVisibility::Visible);
+
 
     // 초기 점수 설정
     Score = 0;
@@ -29,6 +36,14 @@ void UQuizWidget::NativeConstruct()
     {
         FeedbackText->SetVisibility(ESlateVisibility::Hidden);
     }
+}
+
+void UQuizWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+    Super::NativeTick(MyGeometry, InDeltaTime);
+
+    // 매 프레임마다 플레이 타임을 갱신
+    UpdatePlayTimeDisplay(InDeltaTime);
 }
 
 void UQuizWidget::OnAnswerButton1Clicked()
@@ -53,9 +68,19 @@ void UQuizWidget::OnAnswerSelected(const FString& SelectedAnswer)
     else
     {
         ShowFeedback(false);
+        PlayerDamage(1);
     }
 
     UpdateScoreDisplay();
+}
+
+void UQuizWidget::UpdatePlayTimeDisplay(float DeltaSeconds)
+{
+    PlayTime += DeltaSeconds;
+    if (PlayTimeText)
+    {
+        PlayTimeText->SetText(FText::FromString(FString::Printf(TEXT("Play Time : %d"), static_cast<int32>(PlayTime))));
+    }
 }
 
 void UQuizWidget::UpdateScoreDisplay()
@@ -67,8 +92,9 @@ void UQuizWidget::UpdateScoreDisplay()
 }
 
 void UQuizWidget::ShowFeedback(bool bIsCorrect)
-{
-    if (FeedbackText)
+{   
+    if(!FeedbackText) return;
+    else if (FeedbackText)
     {
         if (bIsCorrect)
         {
@@ -83,9 +109,43 @@ void UQuizWidget::ShowFeedback(bool bIsCorrect)
 
         // 일정 시간 후 피드백 숨기기 (비동기적으로 처리 가능)
         FTimerHandle TimerHandle;
-        GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([this]()
-            {
-                FeedbackText->SetVisibility(ESlateVisibility::Hidden);
-            }), 2.0f, false);
+        GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &UQuizWidget::HiddenFeedbackText, 2.f, false);
+    }
+}
+
+void UQuizWidget::HiddenFeedbackText()
+{
+    FeedbackText->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void UQuizWidget::PlayerDamage(int32 damage)
+{
+    PlayerHP -= damage;
+    
+    if (PlayerHP == 2)
+    {
+        if(hp3) hp3->SetVisibility(ESlateVisibility::Hidden);
+    }
+    else if (PlayerHP == 1)
+    {
+        if (hp2) hp2->SetVisibility(ESlateVisibility::Hidden);
+    }
+    else if (PlayerHP <= 0)
+    {
+        if (hp1) hp1->SetVisibility(ESlateVisibility::Hidden);
+
+        SwitchLevel();
+    }
+}
+
+void UQuizWidget::SwitchLevel()
+{
+    // 이동할 레벨 이름을 설정합니다. "NextLevelName"을 원하는 레벨 이름으로 바꿉니다.
+    FString LevelName = "End";
+    
+    // UGameplayStatics를 사용하여 레벨 전환
+    if (!LevelName.IsEmpty())
+    {
+        UGameplayStatics::OpenLevel(GetWorld(), FName(*LevelName));
     }
 }
