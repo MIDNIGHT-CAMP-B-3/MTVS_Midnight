@@ -12,6 +12,7 @@ enum class EAIChildCharacterState :uint8 {
 	STOP ,
 	MOVE ,
 	Complete,
+	Selected,
 	Die,
 };
 
@@ -19,7 +20,8 @@ UCLASS()
 class MTVS_MIDNIGHT_API AAIChildCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
+	FVector StartLocation;
+	FVector EndLocation;
 	bool bCanLookBack;
 	bool bGameStart;
 	class AHSW_Player* player;
@@ -45,7 +47,10 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void SetCompleteState();
+	void TouchEnemy();
 private:
+
 	FVector startLocation;
 	class UAIChildCharacterAnimInstance* anim;
 	void TickIdle(const float& DeltaTime);
@@ -55,5 +60,6 @@ private:
 	void SetStopState();
 	void SetState(EAIChildCharacterState NextState);
 	void TickComplete(const float& DeltaTime);
+	void TickSelected(const float& DeltaTime);
 	void TickDie(const float& DeltaTime);
 };
