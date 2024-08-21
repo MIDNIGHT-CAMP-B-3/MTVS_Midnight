@@ -13,6 +13,7 @@
 #include "Interfaces/IPv4/IPv4Address.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/AudioComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AHSW_Player::AHSW_Player()
@@ -42,6 +43,19 @@ AHSW_Player::AHSW_Player()
 void AHSW_Player::BeginPlay()
 {
 	Super::BeginPlay();
+
+	MugungHwuaAudioComponent = NewObject<UAudioComponent>(this);
+	CheckAudioComponent = NewObject<UAudioComponent>(this);
+
+
+	MugungHwuaAudioComponent->SetSound(MugunghwuaSFV);
+	MugungHwuaAudioComponent->RegisterComponent();
+
+	CheckAudioComponent->SetSound(MugunghwuaSFV);
+	CheckAudioComponent->RegisterComponent();
+	CheckAudioComponent->SetPitchMultiplier(1.1f);
+	CheckAudioComponent->SetVolumeMultiplier(0);
+
 /*	StartUDPServer();*/
 /*	CreateClient();*/
 }
@@ -55,13 +69,32 @@ void AHSW_Player::Tick(float DeltaTime)
 
 	if ( (bCanLookBack == true) )//&& (bPlayingQuiz == false) && (!(MugungHwuaAudioComponent->IsPlaying())) 
 	{
-		PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), LookBackRotation, 0.1f));
+		if ((!(CheckAudioComponent->IsPlaying())) || (CurrentTime > MakeSoundTime))
+		{
+			PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), LookBackRotation, 0.1f));
+			CurrentTime = 0;
+			bCanPlayingSound = true;
+			GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Red, TEXT("SoundOver!!"));
+		}
 		//GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), LookBackRotation, 0.1f));
 		//SetActorRotation(FMath::Lerp(GetActorRotation(), LookBackRotation, 0.1f));
+		else
+		{
+			PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), DefaultRotation, 0.1f));
+		}
 	}
 	else if (bCanLookBack == false)
 	{
-		if ((!(MugungHwuaAudioComponent->IsPlaying()))&&(bCanPlayingSound == true))
+		CurrentTime += DeltaTime;
+		if ((!(CheckAudioComponent->IsPlaying())) && (CurrentTime > MakeSoundTime) && (bCanPlayingSound ==true))
+		{
+			bCanPlayingSound = false;
+			GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Red, TEXT("PlaySound"));
+
+			CheckAudioComponent->Play();
+			MugungHwuaAudioComponent->Play();
+		}
+		GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Magenta, FString::Printf(TEXT("%f"),CurrentTime));
 		PlayerStaticMesh->SetRelativeRotation(FMath::Lerp(PlayerStaticMesh->GetRelativeRotation(), DefaultRotation, 0.1f));
 		//GetMesh()->SetRelativeRotation(FMath::Lerp(GetMesh()->GetRelativeRotation(), DefaultRotation, 0.1f));
 		//SetActorRotation(FMath::Lerp(GetActorRotation(), DefaultRotation, 0.1f));

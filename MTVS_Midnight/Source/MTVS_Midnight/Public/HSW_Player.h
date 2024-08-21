@@ -67,15 +67,22 @@ public:
 //     void ReceiveData();
 
 	float CurrentTime;
-	float MakeSoundTime;
+	float MakeSoundTime = 2.f;
 
-	bool bCanPlayingSound;
+	bool bCanPlayingSound = true;
 	
-	UPROPERTY(EditDefaultsOnly)
-	UAudioComponent* MugungHwuaAudioComponent;
+ 	UPROPERTY(EditDefaultsOnly)
+ 	UAudioComponent* MugungHwuaAudioComponent;
+
+ 	UPROPERTY(EditDefaultsOnly)
+ 	UAudioComponent* CheckAudioComponent;
+// 
+// 	UPROPERTY(EditDefaultsOnly)
+// 	class UParticleSystem* MugungHwuaSoundFactory;
 
 	UPROPERTY(EditDefaultsOnly)
-	class UParticleSystem* MugungHwuaSoundFactory;
+	class USoundBase* MugunghwuaSFV;
+
 
 	void SetMakeSoundTime();
 
