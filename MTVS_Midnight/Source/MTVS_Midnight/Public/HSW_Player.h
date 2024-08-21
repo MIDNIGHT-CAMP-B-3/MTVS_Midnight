@@ -45,7 +45,7 @@ public:
 	void TurnBack();
 	void LookForward();
 
-	void StartUDPServer();
+	//void StartUDPServer();
 
 	// 클라이언트 소켓
     FSocket* ClientSocket;
@@ -57,12 +57,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Default|Values")
 	int32 serverPort = 3333;
 
-	UFUNCTION(BlueprintCallable)
-	// 서버와 연결하기
-    void CreateClient();
-    // 데이터 받기
-    UFUNCTION(BlueprintCallable)
-    void ReceiveData();
+// 	UFUNCTION(BlueprintCallable)
+// 	// 서버와 연결하기
+//     void CreateClient();
+//     // 데이터 받기
+//     UFUNCTION(BlueprintCallable)
+//     void ReceiveData();
 
 
 };
