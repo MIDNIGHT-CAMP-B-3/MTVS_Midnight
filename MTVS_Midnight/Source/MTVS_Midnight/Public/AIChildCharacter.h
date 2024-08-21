@@ -20,7 +20,12 @@ class MTVS_MIDNIGHT_API AAIChildCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+	bool bCanLookBack;
+	bool bGameStart;
+	class AHSW_Player* player;
 public:
+	float randomScaleSpeed = 1.0f;
+	float moveSpeed = 10.0f;
 	// Sets default values for this character's properties
 	AAIChildCharacter();
 		UPROPERTY()
@@ -34,6 +39,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	bool bCanMove;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

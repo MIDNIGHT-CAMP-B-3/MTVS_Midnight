@@ -3,14 +3,14 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "AIChildCharacterAnimInstance.h"
 #include "HSW_Player.h"
-
+#include "Kismet/GameplayStatics.h"
 // Sets default values
 AAIChildCharacter::AAIChildCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	//mesh 에서 퀸을 로드해서 넣고 싶다.
-	ConstructorHelpers::FObjectFinder<USkeletalMesh> Finder(TEXT("/Script/Engine.SkeletalMesh'/Game/Characters/Mannequins/Meshes/SKM_Manny.SKM_Manny'"));
+	ConstructorHelpers::FObjectFinder<USkeletalMesh> Finder(TEXT("/Script/Engine.SkeletalMesh'/Game/Mingi/Characters/Npcs/Walking__4_.Walking__4_'"));
 	if (Finder.Succeeded())
 	{
 		GetMesh()->SetSkeletalMesh(Finder.Object);
@@ -19,7 +19,7 @@ AAIChildCharacter::AAIChildCharacter()
 	}
 
 
-	ConstructorHelpers::FClassFinder<UAnimInstance> animFinder(TEXT("/Script/Engine.AnimBlueprint'/Game/LSJ/AB_AIChildCharacter.AB_AIChildCharacter_C'"));
+	ConstructorHelpers::FClassFinder<UAnimInstance> animFinder(TEXT("/Script/Engine.AnimBlueprint'/Game/LSJ/ABP_AIChild.ABP_AIChild_C'"));
 	if (animFinder.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(animFinder.Class);
@@ -36,8 +36,10 @@ void AAIChildCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	//플레이어 찾기
+	player = Cast<AHSW_Player>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0));
+	if (player)
+		bCanLookBack = player->bCanLookBack;
 	
-
 	//애님 인스턴스 만들기
 	anim = Cast<UAIChildCharacterAnimInstance>(GetMesh()->GetAnimInstance());
 
@@ -45,6 +47,11 @@ void AAIChildCharacter::BeginPlay()
 
 	FTimerHandle TimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AAIChildCharacter::SetMoveState, 3, false);
+	int32 randNum = FMath::RandRange(3, 10);
+	moveSpeed = randNum;
+	float randFloat = FMath::RandRange(0.1, 1.0);
+	randomScaleSpeed= randFloat;
+	UE_LOG(LogTemp, Error, TEXT("%f"), moveSpeed);
 }
 
 // Called every frame
@@ -64,8 +71,45 @@ void AAIChildCharacter::Tick(float DeltaTime)
 	case EAIChildCharacterState::MOVE:
 		TickMove(DeltaTime);
 		break;
+	case EAIChildCharacterState::Complete:
+		TickComplete(DeltaTime);
+		break;
+	case EAIChildCharacterState::Die:
+		TickDie(DeltaTime);
+		break;
 	}
 
+	if (player && bGameStart)
+	{
+		if (bCanLookBack != player->bCanLookBack)
+		{
+			bCanLookBack = player->bCanLookBack;
+			if (bCanLookBack) //player look back
+			{
+				//30% Move And Only 1 child
+				//Select Only One
+				// //spawner select One
+				// //player->bCanLookBack == 0 
+				// //bCanMove = true -> Select one move
+				int32 randNum = FMath::RandRange(1, 10);
+				if (bCanMove && randNum <= 5)
+				{
+					//1초 후에 멈추기
+					FTimerHandle stopTimerHandle;
+					float randNumFloat = FMath::RandRange(1.0f, 1.5f);
+					GetWorld()->GetTimerManager().SetTimer(stopTimerHandle, this, &AAIChildCharacter::SetStopState, randNumFloat, false);
+				}
+				else
+				{
+					SetStopState();
+				}
+			}
+			else
+			{
+				SetMoveState();
+			}
+		}
+	}
 }
 
 // Called to bind functionality to input
@@ -86,7 +130,7 @@ void AAIChildCharacter::TickMove(const float& DeltaTime)
 	FVector direction = GetActorLocation() + GetActorForwardVector()* 10000.0f - GetActorLocation();
 	FVector goalDirection = startLocation + GetActorForwardVector() * goalDistance - GetActorLocation();
 	//UE_LOG(LogTemp, Warning, TEXT("%f"), goalDirection.Length());
-	//목적 거리까지 오면 Complete상태로 전환
+	//목적 거리까지 오면 Complete 상태로 전환
 	if (goalDirection.Length() <= 10)
 	{
 		
@@ -94,11 +138,13 @@ void AAIChildCharacter::TickMove(const float& DeltaTime)
 		return;
 	}
 	direction.Normalize();
-	AddMovementInput(direction * 10 , 1.0f);
+
+	AddMovementInput(direction * 0.5, randomScaleSpeed);
 	//EPathFollowingRequestResult::Type result = enemyAIController->MoveToLocation(player->GetActorLocation());
 }
 void AAIChildCharacter::SetMoveState()
 {
+	bGameStart = true;
 	GetMesh()->bPauseAnims = false;
 	SetState(EAIChildCharacterState::MOVE);
 }

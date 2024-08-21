@@ -14,7 +14,6 @@ void UAIChildCharacterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	}
 	FVector velocity = owner->GetVelocity();
 	FVector forwardVector = owner->GetActorForwardVector();
-	//菊第 加档
+	//菊第 加档 //max speed 600
 	Speed = FVector::DotProduct(forwardVector, velocity);
-	UE_LOG(LogTemp,Warning,TEXT("%f"),Speed);
 }
