@@ -25,17 +25,13 @@ void AAIChildCharacterSpawner::BeginPlay()
 	characterAI1 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(200, 0.f, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, 50.f, 0)), GetActorRotation());
 	if(NewSkeletalMesh1)
 		characterAI1->NewSkeletalMesh = NewSkeletalMesh1;
-	characterAI1->numLine = 1;
 	characterAI2 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(600.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, 150.f, 0)), GetActorRotation());
 	if (NewSkeletalMesh2)
 		characterAI2->NewSkeletalMesh = NewSkeletalMesh2;
-	characterAI2->numLine = 2;
 	characterAI3 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(-200.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, -50.f, 0)), GetActorRotation());
 	if (NewSkeletalMesh3)
 		characterAI3->NewSkeletalMesh = NewSkeletalMesh3;
-	characterAI3->numLine = 3;
 	characterAI4 = GetWorld()->SpawnActor<AAIChildCharacter>(aiChildCharacterFactory, (GetActorLocation() + FVector(-600.f, 0, 0)), GetActorRotation()); // (GetActorLocation() + FVector(0, -150.f, 0)), GetActorRotation());
-	characterAI4->numLine = 4;
 	CheckSpeed(1);
 	CheckSpeed(2);
 	CheckSpeed(3);
